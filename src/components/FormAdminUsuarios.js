@@ -93,17 +93,13 @@ const FormAdminUsuarios = () => {
                     </div>
                 </div>
             </div>
-            
-            <Modal showModal={showModalConfirmar} onClick={handleCloseConfirmar} >
-                <ModalAlertConfirmar
-                    msj={msj}
-                    onClick={handleYes}
-                    onClickSecondary={handleCloseConfirmar}
-                    textBtn={"Si"}
-                    textBtn2={"No"}
-                />
-            </Modal>
-            <ModalConfirmar title={title} show={showModalConfirmar} handleClose={handleCloseConfirmar} msj={msj} onClick={handleYes} onClickSecondary={handleCloseConfirmar}/>
+            <ModalConfirmar 
+                title={title}
+                msj={msj}
+                show={showModalConfirmar} 
+                handleClose={handleCloseConfirmar} 
+                handleYes={handleYes}
+            />
             <ModalTest title={title} show={showModal} handleClose={handleClose} msj={msj}/>
         </main>
     );

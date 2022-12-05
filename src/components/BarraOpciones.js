@@ -6,8 +6,8 @@ const BarraOpciones = () => {
     return (  
         <div className="Barra">
             <div className="contenedorOpciones">
-                <NavLink to="/AdministrarRoles" className="opcion" >Administrar Roles</NavLink>
                 <NavLink to="/AdministrarUsuarios" className="opcion" >Administrar Usuarios</NavLink>
+                <NavLink to="/PolizasGrupos" className="opcion" >Polizas y Grupos</NavLink>
             </div>
         </div>
     );
