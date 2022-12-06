@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ContenedorTitulo, InputB } from "./Formularios";
 import { EliminarUsuario } from "../api/EliminarUsuario";
+
+import Table from "./DataTable/DataTable";
+import styled from 'styled-components';
 // import Modal from "./Modal";
 // import ModalAlertConfirmar from "./ModalAlert/indexConfirmar";
 // import ModalAlert from './ModalAlert';
@@ -19,6 +22,8 @@ const FormAdminUsuarios = () => {
     const [showModal, setShowModal] = useState(false);
     const history = useNavigate();
     const [idElminar, setIdElminar] = useState("");
+
+
 
     const handleCloseConfirmar = () => {
         setShowModalConfirmar(false);
@@ -53,11 +58,6 @@ const FormAdminUsuarios = () => {
     };
 
 
-
-/////////////////////////////////////////////////////////////////////////
-
-
-
     // DataTable
     // 1.-Configurar Hooks
     const [users, setUsers] = useState([ ])
@@ -66,8 +66,9 @@ const FormAdminUsuarios = () => {
     // 2.-Funcion para mostrar los datos
     const showData = async () => {
         const response = await ListarUsuarios()
-       // setUsers(response)
-       // console.log(response)
+        console.log(response.usuario)
+        setUsers(response.usuario)
+       
     }
 
     useEffect( () => {
@@ -90,6 +91,7 @@ const FormAdminUsuarios = () => {
         }
     ]
 
+    const clickhandler = name => console.log("delete", name);
 
     return (
         <main>
@@ -106,12 +108,7 @@ const FormAdminUsuarios = () => {
                             <button className="buttonAgregarUsuario" onClick={onSubmit}> + Agregar Usuario</button>
                         </div>
                         <div className="boxTabla">
-                            <DataTable 
-                                title="Visualizacion usuarios"
-                                columns={columns}
-                                data={users}
-                                pagination
-                            />
+                        <Table data={users} click={clickhandler} />
                         </div>
                     </div>
                 </div>
