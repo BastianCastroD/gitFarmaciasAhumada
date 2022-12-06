@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ContenedorTitulo, InputB } from "./Formularios";
 import { EliminarUsuario } from "../api/EliminarUsuario";
-import Modal from "./Modal";
-import ModalAlertConfirmar from "./ModalAlert/indexConfirmar";
-import ModalAlert from './ModalAlert';
+// import Modal from "./Modal";
+// import ModalAlertConfirmar from "./ModalAlert/indexConfirmar";
+// import ModalAlert from './ModalAlert';
 import "../styles/AdminUsuarios.css";
 import ModalTest from "./ModalTest";
 import ModalConfirmar from "./ModalConfirmar";
+import { ListarUsuarios } from "../api/ListarUsuarios";
+import DataTable from "react-data-table-component";
 
 
 const FormAdminUsuarios = () => {
@@ -38,7 +40,6 @@ const FormAdminUsuarios = () => {
         }
     }
 
-
     const onSubmit = async (e) => {
         history("/NuevoClienteEmpresa");
     };
@@ -50,6 +51,44 @@ const FormAdminUsuarios = () => {
         setTitle("Eliminar usuario existente")
         setMsj("¿Desea eliminar el usuario seleccionado?")
     };
+
+
+
+/////////////////////////////////////////////////////////////////////////
+
+
+
+    // DataTable
+    // 1.-Configurar Hooks
+    const [users, setUsers] = useState([ ])
+
+
+    // 2.-Funcion para mostrar los datos
+    const showData = async () => {
+        const response = await ListarUsuarios()
+       // setUsers(response)
+       // console.log(response)
+    }
+
+    useEffect( () => {
+        showData()
+    }, [])
+
+    // 3.-Configurar columnas para Datatable
+    const columns = [
+        {
+            name: 'Nombre',
+            selector: row => row.nombre
+        },
+        {
+            name: 'Apellido',
+            selector: row => row.apellido
+        },
+        {
+            name: 'Apellido2',
+            selector: row => row.apellido2
+        }
+    ]
 
 
     return (
@@ -66,30 +105,14 @@ const FormAdminUsuarios = () => {
                         <div>
                             <button className="buttonAgregarUsuario" onClick={onSubmit}> + Agregar Usuario</button>
                         </div>
-                    </div>
-                    <div className="col">
-                        <ContenedorTitulo>
-                            <label className="titulo">Eliminar usuario existente</label>
-                        </ContenedorTitulo>
-                        <div id="notaLogin">
-                            Para eliminar un usuario ingrese un "ID" que sea valido.
+                        <div className="boxTabla">
+                            <DataTable 
+                                title="Visualizacion usuarios"
+                                columns={columns}
+                                data={users}
+                                pagination
+                            />
                         </div>
-                        <form onSubmit={onSubmitEliminar} >
-                            <div className="boxEliminar">
-                                <InputB
-                                    type="email"
-                                    name="idElminar"
-                                    placeholder=""
-                                    value={idElminar}
-                                    onChange={e => setIdElminar(e.target.value)}
-                                    required
-                                />
-                                <div className="boxButton">
-                                    <button type="submit" className="buttonEliminar">Eliminar</button>
-                                </div>
-                            </div>
-                        </form>
-
                     </div>
                 </div>
             </div>
