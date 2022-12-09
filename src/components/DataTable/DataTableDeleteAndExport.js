@@ -11,10 +11,18 @@ import Edit from '@mui/icons-material/Edit';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { ExportToCsv } from 'export-to-csv-fix-source-map';
 import { MRT_Localization_ES } from 'material-react-table/locales/es';
+import { EliminarUsuario } from "../../api/EliminarUsuario";
+import ModalConfirmar from "../ModalConfirmar";
+import { useNavigate } from "react-router-dom";
 
 const DataTableDeleteAndExport = props => {
   //Se crea la vairable con informacion de la data table
   const [tableData, setTableData] = useState(props.data)
+  const [title, setTitle] = useState();
+  const [msj, setMsj] = useState();
+  const [showModalConfirmar, setShowModalConfirmar] = useState(false);
+  const [values, setValues] = useState();
+  const history = useNavigate();
 
   //Opciones de la creacion de csv
   const csvOptions = {
@@ -36,24 +44,47 @@ const DataTableDeleteAndExport = props => {
   // Metodo para eliminar
   const handleDeleteRow = useCallback(
     (row) => {
-      //Enviar una solicitud de eliminación de api aquí, luego recupere o actualice los datos de la tabla local para volver a renderizar
-      tableData.splice(row.index, 1);
-      setTableData([...tableData]);
+      setValues(row);
+      setTitle("¿Desea continuar?")
+      setMsj("Seleccione confirmar si desea elimnar el campo")
+      setShowModalConfirmar(true)
     },
     [tableData],
   );
 
+  //Modal Confirmar
+  const handleConfirmar = async () => {
+    const resp = await EliminarUsuario(values.original.correo)
+    tableData.splice(values.index, 1);
+    setTableData([...tableData]);
+    var codigoRespuesta = resp['eliminar'][0]['codigoRespuesta'];
+    var detalleRespuesta = resp['eliminar'][0]['detalleRespuesta'];
+    setShowModalConfirmar(false);
+    console.log(resp)
+  }
+
+  const handleCloseConfirmar = () => {
+    setShowModalConfirmar(false);
+  }
+
   return (
-    <MaterialReactTable
-      columns={props.columns}
-      data={tableData}
-      positionToolbarAlertBanner="bottom"
-      enableRowActions
-      localization={MRT_Localization_ES}
-      renderRowActions={({ row, table }) => (
-        <Box>
-          {
-            (props.delete)
+    <>
+      <ModalConfirmar
+        title={title}
+        msj={msj}
+        show={showModalConfirmar}
+        handleClose={handleCloseConfirmar}
+        handleYes={handleConfirmar} />
+      <MaterialReactTable
+
+        columns={props.columns}
+        data={tableData}
+        positionToolbarAlertBanner="bottom"
+        enableRowActions
+        localization={MRT_Localization_ES}
+        renderRowActions={({ row, table }) => (
+          <Box>
+            {(props.delete)
               ?
               <Tooltip title="Eliminar">
                 <IconButton color="error" onClick={() => handleDeleteRow(row)}>
@@ -61,29 +92,41 @@ const DataTableDeleteAndExport = props => {
                 </IconButton>
               </Tooltip>
               :
-              null
-          }
-        </Box>
-      )}
+              null}
+          </Box>
+        )}
 
-      renderToolbarInternalActions={({ table }) => (
-        <>
-          <MRT_ToggleGlobalFilterButton table={table} />
-          <MRT_ToggleFiltersButton table={table} />
-          {
-            (props.export)
+        renderToolbarInternalActions={({ table }) => (
+          <>
+            <MRT_ToggleGlobalFilterButton table={table} />
+            <MRT_ToggleFiltersButton table={table} />
+            {(props.export)
               ?
               <Tooltip title="Exportar">
-                <IconButton onClick={() => { handleExportRows(table.getPrePaginationRowModel().rows) }}>
+                <IconButton onClick={() => { handleExportRows(table.getPrePaginationRowModel().rows); }}>
                   <FileDownloadIcon />
                 </IconButton>
               </Tooltip>
-              : null
-          }
-          <MRT_FullScreenToggleButton table={table} />
-        </>
-      )}
-    />
+              : null}
+            <MRT_FullScreenToggleButton table={table} />
+          </>
+        )}
+        renderTopToolbarCustomActions={({ table }) => (
+          <div style={{ display: 'flex', gap: '0.5rem' }}>
+
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => { history("/NuevoClienteEmpresa"); }}
+            >
+              + Agregar Usuario
+            </Button>
+          </div>
+
+        )}
+      />
+
+    </>
   );
 };
 export default DataTableDeleteAndExport;

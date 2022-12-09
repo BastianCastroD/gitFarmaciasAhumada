@@ -8,25 +8,37 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { ExportToCsv } from 'export-to-csv-fix-source-map';
 import { MRT_Localization_ES } from 'material-react-table/locales/es';
 import "../../styles/PolizasGrupos.css";
+import { PolizaServiceUpdate } from "../../api/PolizaService";
 
-const DataTableEditAndExport = props => {
-  //
+const DataTablePoliza = props => {
+  //Modal Variables
   const [title, setTitle] = useState();
   const [msj, setMsj] = useState();
   const [showModalConfirmar, setShowModalConfirmar] = useState(false);
+  //Edit table variables
+  const [values, setValues] = useState();
+  const [row, setRow] = useState();
 
   const handleCloseConfirmar = () => {
     setShowModalConfirmar(false);
   }
 
-  const handleYes = async () => {
-    //const resp = await EliminarUsuario(idElminar)
-
+  //Confirma la accion del modal y ejecuta update de la informacion de la tabla 
+  const handleConfirmar = async () => {
+    const resp = await PolizaServiceUpdate(
+      values.grupoAhumada,
+      values.nombrePoliza,
+      values.codigoPoliza,
+      values.rutEmpresa,
+      values.terminoBeneficio,
+      values.polizaAceptaBioequivalente
+    )
+    console.log(resp);
     setShowModalConfirmar(false);
-
+    tableData[row.index] = values;
+    setTableData([...tableData]);
 
   }
-
 
   //Se crea la vairable con informacion de la data table
   const [tableData, setTableData] = useState(() => props.data)
@@ -38,11 +50,13 @@ const DataTableEditAndExport = props => {
 
   //Metodo para handle la edicion de informacion de la table
   const handleSaveRowEdits = async ({ exitEditingMode, row, values }) => {
-    tableData[row.index] = values;
-    //send/receive api updates here, then refetch or update local table data for re-render
-    console.log(values);
-    setTableData([...tableData]);
-    exitEditingMode(); //required to exit editing mode and close modal
+    setTitle("¿Desea continuar?")
+    setMsj("Seleccione confirmar si desea editar el campo")
+    setShowModalConfirmar(true)
+    setValues(values);
+    setRow(row);
+    exitEditingMode();
+
   };
 
   //Metodo para handle la cancelacion de la edicion de informacion de la table
@@ -123,10 +137,10 @@ const DataTableEditAndExport = props => {
         msj={msj}
         show={showModalConfirmar}
         handleClose={handleCloseConfirmar}
-        handleYes={handleYes}
+        handleYes={handleConfirmar}
       />
 
     </>
   );
 };
-export default DataTableEditAndExport;
+export default DataTablePoliza;

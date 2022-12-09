@@ -28,7 +28,7 @@ const FormAdminUsuarios = () => {
         setShowModal(false);
     }
 
-    const handleYes = async () => {
+    const handleConfirmar = async () => {
         const resp = await EliminarUsuario(idElminar)
         var codigoRespuesta = resp['eliminar'][0]['codigoRespuesta'];
         var detalleRespuesta = resp['eliminar'][0]['detalleRespuesta'];
@@ -62,9 +62,8 @@ const FormAdminUsuarios = () => {
     // 2.-Funcion para mostrar los datos
     const showData = async () => {
         const response = await ListarUsuarios()
-
         setUsers(response.usuario)
-
+        console.log(response.usuario);
     }
 
     useEffect(() => {
@@ -74,18 +73,39 @@ const FormAdminUsuarios = () => {
     // 3.-Configurar columnas para Datatable
     const columns = [
         {
+            accessorKey: 'rut',
+            header: 'Rut',
+            size: 120,
+        },
+        {
             accessorKey: 'nombre',
-            header: 'nombre',
-            size: 40,
+            header: 'Nombre',
+            size: 120,
         },
         {
             accessorKey: 'apellido',
-            header: 'First Name',
+            header: 'Apellido',
             size: 120,
         },
         {
             accessorKey: 'apellido2',
-            header: 'Last Name',
+            header: 'Segundo Apellido',
+            size: 120,
+        },
+
+        {
+            accessorKey: 'celular',
+            header: 'Celular',
+            size: 120,
+        },
+        {
+            accessorKey: 'correo',
+            header: 'Correo',
+            size: 50,
+        },
+        {
+            accessorKey: 'cargo',
+            header: 'Cargo',
             size: 120,
         },
     ];
@@ -103,9 +123,7 @@ const FormAdminUsuarios = () => {
                         <div id="notaLogin">
                             En esta seccion podras agregar un nuevo usuario al sistema.
                         </div>
-                        <div>
-                            <button className="buttonAgregarUsuario" onClick={onSubmit}> + Agregar Usuario</button>
-                        </div>
+
                         <div className="boxTabla">
                             {
                                 (users === undefined)
@@ -128,7 +146,7 @@ const FormAdminUsuarios = () => {
                 msj={msj}
                 show={showModalConfirmar}
                 handleClose={handleCloseConfirmar}
-                handleYes={handleYes}
+                handleYes={handleConfirmar}
             />
             <ModalTest title={title} show={showModal} handleClose={handleClose} msj={msj} />
         </main>
