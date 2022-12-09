@@ -1,65 +1,86 @@
 import React, { useState, useEffect, onChange } from "react";
 import "../styles/PolizasGrupos.css";
-import DataTable from "react-data-table-component";
-import { ListarUsuarios } from "../api/ListarUsuarios";
+import { ContenedorTitulo } from "./Formularios";
+import { PolizaService } from "../api/PolizaService";
+import DataTableEditAndExport from "./DataTable/DataTableEditAndExport";
 
 const FormPolizas = () => {
 
     // 1.-Configurar Hooks
-    const [users, setUsers] = useState([ ])
-
+    const [dataTable, setDataTable] = useState()
 
     // 2.-Funcion para mostrar los datos
     const showData = async () => {
-        const response = await ListarUsuarios()
-        const data = await response
-        //console.log(users)
-        //setUsers(response)
-        //setUsers(data)
+        const response = await PolizaService()
+        setDataTable(response.response)
     }
 
-    useEffect( () => {
+    useEffect(() => {
         showData()
     }, [])
 
-    // 3.-Configurar columnas para Datatable
     const columns = [
         {
-            name: 'Nombre',
-            selector: row => row.nombre
+            accessorKey: 'codigoPoliza',
+            header: 'Codigo',
+            size: 20,
         },
         {
-            name: 'Apellido',
-            selector: row => row.apellido
+            accessorKey: 'estadoPolizaAhumada',
+            header: 'Estado',
+            size: 100,
         },
         {
-            name: 'Apellido2',
-            selector: row => row.apellido2
-        }
-    ]
+            accessorKey: 'grupoAhumada',
+            header: 'Grupo',
+            size: 100,
+        },
+        {
+            accessorKey: 'nombrePoliza',
+            header: 'Nombre',
+            size: 200,
+        },
+        {
+            accessorKey: 'polizaAceptaBioequivalente',
+            header: 'Bioequivalente',
+            size: 10,
 
-    return (  
+        },
+        {
+            accessorKey: 'rutEmpresa',
+            header: 'RUT',
+            size: 120,
+        },
+        {
+            accessorKey: 'terminoBeneficio',
+            header: 'Termino Beneficio',
+            size: 120,
+        },
+    ];
+
+    return (
         <main>
             <div>
-                <div className="boxTabla">
-                    <DataTable 
-                        title="Visualizacion de polizas y grupos"
-                        columns={columns}
-                        data={users}
-                        pagination
-                    />
+                <ContenedorTitulo>
+                    <label className="titulo">Visualización Póliza y Grupos</label>
+                </ContenedorTitulo>
+                <div id="notaLogin">
+                    En esta seccion podras editar, descargar y cargar masivamente.
                 </div>
-                <div className="boxBotones">
-                    <div className="cargar">
-                        <button type="submit" className="buttonCargar">Cargar</button>
-                    </div>
-                    <div className="descargar">
-                        <button type="submit" className="buttonDescargar">Descargar</button>
-                    </div>
-                </div>
+                {
+                    (dataTable === undefined)
+                        ?
+                        null
+                        : <DataTableEditAndExport
+                            data={dataTable}
+                            columns={columns}
+                            export={true}
+                        />
+                }
+
             </div>
         </main>
     );
 }
- 
+
 export default FormPolizas;

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ContenedorTitulo, InputB } from "./Formularios";
 import { EliminarUsuario } from "../api/EliminarUsuario";
 
-import Table from "./DataTable/DataTable";
+import DataTableDeleteAndExport from "./DataTable/DataTableDeleteAndExport";
 import styled from 'styled-components';
 // import Modal from "./Modal";
 // import ModalAlertConfirmar from "./ModalAlert/indexConfirmar";
@@ -12,7 +12,6 @@ import "../styles/AdminUsuarios.css";
 import ModalTest from "./ModalTest";
 import ModalConfirmar from "./ModalConfirmar";
 import { ListarUsuarios } from "../api/ListarUsuarios";
-import DataTable from "react-data-table-component";
 
 
 const FormAdminUsuarios = () => {
@@ -22,9 +21,6 @@ const FormAdminUsuarios = () => {
     const [showModal, setShowModal] = useState(false);
     const history = useNavigate();
     const [idElminar, setIdElminar] = useState("");
-
-
-
     const handleCloseConfirmar = () => {
         setShowModalConfirmar(false);
     }
@@ -40,7 +36,7 @@ const FormAdminUsuarios = () => {
         setTitle("Eliminar usuario existente")
         setShowModal(true)
         setMsj(detalleRespuesta)
-        if(codigoRespuesta==0){
+        if (codigoRespuesta == 0) {
             setIdElminar("");
         }
     }
@@ -60,36 +56,39 @@ const FormAdminUsuarios = () => {
 
     // DataTable
     // 1.-Configurar Hooks
-    const [users, setUsers] = useState([ ])
+    const [users, setUsers] = useState()
 
 
     // 2.-Funcion para mostrar los datos
     const showData = async () => {
         const response = await ListarUsuarios()
-        console.log(response.usuario)
+
         setUsers(response.usuario)
-       
+
     }
 
-    useEffect( () => {
+    useEffect(() => {
         showData()
     }, [])
 
     // 3.-Configurar columnas para Datatable
     const columns = [
         {
-            name: 'Nombre',
-            selector: row => row.nombre
+            accessorKey: 'nombre',
+            header: 'nombre',
+            size: 40,
         },
         {
-            name: 'Apellido',
-            selector: row => row.apellido
+            accessorKey: 'apellido',
+            header: 'First Name',
+            size: 120,
         },
         {
-            name: 'Apellido2',
-            selector: row => row.apellido2
-        }
-    ]
+            accessorKey: 'apellido2',
+            header: 'Last Name',
+            size: 120,
+        },
+    ];
 
     const clickhandler = name => console.log("delete", name);
 
@@ -108,19 +107,30 @@ const FormAdminUsuarios = () => {
                             <button className="buttonAgregarUsuario" onClick={onSubmit}> + Agregar Usuario</button>
                         </div>
                         <div className="boxTabla">
-                        <Table data={users} click={clickhandler} />
+                            {
+                                (users === undefined)
+                                    ?
+                                    null
+                                    : <DataTableDeleteAndExport
+                                        data={users}
+                                        columns={columns}
+                                        export={false}
+                                        delete={true}
+                                    />
+                            }
+
                         </div>
                     </div>
                 </div>
             </div>
-            <ModalConfirmar 
+            <ModalConfirmar
                 title={title}
                 msj={msj}
-                show={showModalConfirmar} 
-                handleClose={handleCloseConfirmar} 
+                show={showModalConfirmar}
+                handleClose={handleCloseConfirmar}
                 handleYes={handleYes}
             />
-            <ModalTest title={title} show={showModal} handleClose={handleClose} msj={msj}/>
+            <ModalTest title={title} show={showModal} handleClose={handleClose} msj={msj} />
         </main>
     );
 }
