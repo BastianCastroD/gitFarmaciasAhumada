@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MaterialReactTable, { MRT_FullScreenToggleButton, MRT_ToggleGlobalFilterButton, MRT_ToggleFiltersButton } from 'material-react-table';
-import { Box, Button, IconButton, Tooltip } from '@mui/material';
+import { Box, IconButton, Tooltip } from '@mui/material';
+import Button from 'react-bootstrap/Button';
 import Delete from '@mui/icons-material/Delete';
 import Edit from '@mui/icons-material/Edit';
 import ModalConfirmar from "../ModalConfirmar";
@@ -9,12 +10,17 @@ import { ExportToCsv } from 'export-to-csv-fix-source-map';
 import { MRT_Localization_ES } from 'material-react-table/locales/es';
 import "../../styles/PolizasGrupos.css";
 import { PolizaServiceUpdate } from "../../api/PolizaService";
+import ModalUploadFile from "../ModalUploadFile/ModalUploadFile";
 
 const DataTablePoliza = props => {
   //Modal Variables
   const [title, setTitle] = useState();
   const [msj, setMsj] = useState();
   const [showModalConfirmar, setShowModalConfirmar] = useState(false);
+  //Modal Upload Variables
+  const [titleUpload, setTitleUpload] = useState();
+  const [msjUpload, setMsjUpload] = useState();
+  const [showModalUpload, setShowModalUpload] = useState(false);
   //Edit table variables
   const [values, setValues] = useState();
   const [row, setRow] = useState();
@@ -23,6 +29,9 @@ const DataTablePoliza = props => {
     setShowModalConfirmar(false);
   }
 
+  const handleCloseUpload = () => {
+    setShowModalUpload(false);
+  }
   //Confirma la accion del modal y ejecuta update de la informacion de la tabla 
   const handleConfirmar = async () => {
     const resp = await PolizaServiceUpdate(
@@ -113,17 +122,15 @@ const DataTablePoliza = props => {
             <div style={{ display: 'flex', gap: '0.5rem' }}>
 
               <Button
-                variant="contained"
-                color="primary"
+
                 onClick={() => { handleExportRows(table.getPrePaginationRowModel().rows); }}
               >
                 Descargar
 
               </Button>
               <Button
-                variant="contained"
-                color="primary"
-                onClick={() => { handleExportRows(table.getPrePaginationRowModel().rows); }}
+
+                onClick={() => { setShowModalUpload(true) }}
               >
                 Cargar
               </Button>
@@ -138,6 +145,12 @@ const DataTablePoliza = props => {
         show={showModalConfirmar}
         handleClose={handleCloseConfirmar}
         handleYes={handleConfirmar}
+      />
+      <ModalUploadFile
+        title={"Cargar datos masivos"}
+        msj={"Cargue el archivo .csv con el cual desea actualizar los registros"}
+        show={showModalUpload}
+        handleClose={handleCloseUpload}
       />
 
     </>

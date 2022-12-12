@@ -3,6 +3,7 @@ import "../styles/PolizasGrupos.css";
 import { ContenedorTitulo } from "./Formularios";
 import { PolizaService } from "../api/PolizaService";
 import DataTableEditAndExport from "./DataTable/DataTablePoliza";
+import UploadFile from "./UploadFile/UploadFile";
 
 const FormPolizas = () => {
 
