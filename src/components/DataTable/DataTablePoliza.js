@@ -12,6 +12,7 @@ import "../../styles/PolizasGrupos.css";
 import { PolizaServiceUpdate } from "../../api/PolizaService";
 import ModalUploadFile from "../ModalUploadFile/ModalUploadFile";
 
+
 const DataTablePoliza = props => {
   //Modal Variables
   const [title, setTitle] = useState();
@@ -65,7 +66,6 @@ const DataTablePoliza = props => {
     setValues(values);
     setRow(row);
     exitEditingMode();
-
   };
 
   //Metodo para handle la cancelacion de la edicion de informacion de la table

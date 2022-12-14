@@ -3,22 +3,31 @@ import "../styles/PolizasGrupos.css";
 import { ContenedorTitulo } from "./Formularios";
 import { PolizaService } from "../api/PolizaService";
 import DataTableEditAndExport from "./DataTable/DataTablePoliza";
-import UploadFile from "./UploadFile/UploadFile";
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
 
 const FormPolizas = () => {
+    const [filtrarValue, setFiltrarValue] = useState()
+
 
     // 1.-Configurar Hooks
     const [dataTable, setDataTable] = useState()
 
     // 2.-Funcion para mostrar los datos
     const showData = async () => {
-        const response = await PolizaService()
+        setDataTable(undefined)
+        const response = await PolizaService(filtrarValue)
+
         setDataTable(response.response)
     }
 
-    useEffect(() => {
-        showData()
-    }, [])
+    const onChange = (e) => {
+        console.log(e.target.value);
+        setFiltrarValue(e.target.value);
+
+    };
 
     const columns = [
         {
@@ -69,12 +78,30 @@ const FormPolizas = () => {
     return (
         <main>
             <div>
+
                 <ContenedorTitulo>
                     <label className="titulo">Visualización Póliza y Grupos</label>
                 </ContenedorTitulo>
                 <div id="notaLogin">
                     En esta seccion podras editar, descargar y cargar masivamente.
                 </div>
+                <Form>
+                    <Row>
+                        <Col xs={7}>
+                            <Form.Select onChange={onChange} aria-label="Default select example">
+                                <option>Seleccionar codigo</option>
+                                <option value="EURA">EURA</option>
+                                <option value="BCIS">BCIS</option>
+                                <option value="EURA">EURA</option>
+                            </Form.Select>
+                        </Col>
+                        <Col>
+                            <Button onClick={showData} style={{ marginTop: 5 }}>
+                                Filtrar
+                            </Button>
+                        </Col>
+                    </Row>
+                </Form>
                 {
                     (dataTable === undefined)
                         ?
