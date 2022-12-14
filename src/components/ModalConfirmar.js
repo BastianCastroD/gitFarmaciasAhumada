@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 
-const ModalConfirmar = ({show,handleClose, handleYes,msj,title}) => {
+const ModalConfirmar = ({ show, handleClose, handleYes, msj, title }) => {
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -12,10 +12,10 @@ const ModalConfirmar = ({show,handleClose, handleYes,msj,title}) => {
             <Modal.Body>{msj}</Modal.Body>
             <Modal.Footer>
                 <Button variant="primary" onClick={handleYes}>
-                    Si
+                    Confirmar
                 </Button>
                 <Button variant="secondary" onClick={handleClose}>
-                    No
+                    Cancelar
                 </Button>
             </Modal.Footer>
         </Modal>

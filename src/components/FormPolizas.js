@@ -1,8 +1,9 @@
-import React, { useState, useEffect, onChange } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/PolizasGrupos.css";
 import { ContenedorTitulo } from "./Formularios";
 import { PolizaService } from "../api/PolizaService";
-import DataTableEditAndExport from "./DataTable/DataTableEditAndExport";
+import DataTableEditAndExport from "./DataTable/DataTablePoliza";
+import UploadFile from "./UploadFile/UploadFile";
 
 const FormPolizas = () => {
 
@@ -33,6 +34,7 @@ const FormPolizas = () => {
         {
             accessorKey: 'grupoAhumada',
             header: 'Grupo',
+            enableEditing: false,
             size: 100,
         },
         {
@@ -54,6 +56,12 @@ const FormPolizas = () => {
         {
             accessorKey: 'terminoBeneficio',
             header: 'Termino Beneficio',
+            size: 120,
+        },
+        {
+            accessorKey: 'cuentaLiquidador',
+            header: 'Cuenta Liquidador',
+            enableEditing: false,
             size: 120,
         },
     ];
