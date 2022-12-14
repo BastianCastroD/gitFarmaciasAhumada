@@ -5304,11 +5304,6 @@
   "resolved" "https://registry.npmjs.org/export-to-csv-fix-source-map/-/export-to-csv-fix-source-map-0.2.1.tgz"
   "version" "0.2.1"
 
-"export-to-csv@^0.2.1":
-  "integrity" "sha512-KTbrd3CAZ0cFceJEZr1e5uiMasabeCpXq1/5uvVxDl53o4jXJHnltasQoj2NkzrxD8hU9kdwjnMhoir/7nNx/A=="
-  "resolved" "https://registry.npmjs.org/export-to-csv/-/export-to-csv-0.2.1.tgz"
-  "version" "0.2.1"
-
 "express@^4.17.3":
   "integrity" "sha512-5/PsL6iGPdfQ/lKM1UuielYgv3BUoJfz1aUwU9vHZ+J7gyvwdQXFEBIEIaxeGf0GIcreATNyBExtalisDbuMqQ=="
   "resolved" "https://registry.npmjs.org/express/-/express-4.18.2.tgz"
