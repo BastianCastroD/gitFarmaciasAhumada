@@ -14,6 +14,7 @@ import CambiarPass from "./screens/CambiarPass";
 import HomeEmpresa from "./screens/HomeEmpresa";
 import ModificarPass from "./screens/ModificarPass";
 import PolizasGrupos from "./screens/PolizasGrupos";
+import RestaurarPass from "./screens/RestaurarPass";
 
 export default function App() {
   return (
@@ -28,8 +29,9 @@ export default function App() {
         <Route exact path="/AdministrarUsuarios" element={<AdministrarUsuarios />} />
         <Route exact path="/NuevoClienteEmpresa" element={<NuevoClienteEmpresa />} />
         <Route exact path="/CambiarPass" element={<CambiarPass />} />
-        <Route exact path="/ModificarPass" element={<ModificarPass />} />
         <Route exact path="/PolizasGrupos" element={<PolizasGrupos />} />
+        <Route exact path="/RestaurarPass/:email" element={<RestaurarPass />} />
+        <Route exact path="/ModificarPass/:email" element={<ModificarPass />} />
       </Routes>
     </BrowserRouter>
   );

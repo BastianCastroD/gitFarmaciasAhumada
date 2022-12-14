@@ -347,7 +347,6 @@ const FormPacienteCliente = () => {
 									</div>
 									<div className="CrearPaciente">
 										<button className="buttomCrearCuenta" type="submit" >Crear Cuenta</button>
-
 										<div className="CampoRequerido">
 											<span>* Campos requeridos</span>
 										</div>

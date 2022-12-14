@@ -1,96 +1,70 @@
 import React, { useState, useEffect } from "react";
-import { Label, GrupoInput, Inputs, LabelReq, Inputp, RestriccionPass, Inputc} from "./Formularios";
+import { Label, GrupoInput, Inputs, LabelReq, RestriccionPass, Inputc} from "./Formularios";
 import ModalTest from "./ModalTest";
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ActualizarPass } from "../api/ActualizarPass";
-import { LoginService } from "../api/LoginService";
-import "../styles/ModificarPass.css";
+import "../styles/RestaurarPass.css";
 
 const initialForm = {
-	passwdActual: '',
 	passwd: '',
 	passwd2: '',
 };
 
-const FormModificarPass = () => {
+const FormRestaurarPass = () => {
 
-    //Variables
     const navigate = useNavigate();
     const [title, setTitle] = useState();
 	const [msj, setMsj] = useState();
     const [showModal, setShowModal] = useState(false);
-    const [user, setUser] = useState(false);
-    const [IsValid, setIsValid] = useState(false);
-    //const handleClose = () => setShowModal(false);
+	const [user, setUser] = useState(false);
+    const [isValid, setIsValid] = useState(false);
 
     const handleClose = () => {
 		setShowModal(false);
-		if (IsValid) {
-			//Redireccionar al home
+		if (isValid) {
+			//Redireccionar al home usuario cliente recien creado
 			navigate(`/Home/${(emailparam[2])}`);
 			handleClear();
 		}
 	}
 
-    //Register Data
     const [registerData, setRegisterData] = useState({
-        passwdActual: '',
 		passwd: '',
 		passwd2: '',
 	});
 
-    const { passwdActual, passwd, passwd2 } = registerData;
+    const { passwd, passwd2 } = registerData;
 
-    //User
+
     const location = useLocation();
-    const emailparam = location.pathname.split("/")
+	const emailparam = location.pathname.split("/")
     useEffect(() => {
-        setUser(emailparam[2])
-    }, [])
+		setUser(emailparam[2])
+	}, [])
 
     //Validaciones
     const onSubmit = async (e) => {
-        e.preventDefault();
-        //console.log(emailparam[2])
-        //console.log(registerData.passwdActual)
+		e.preventDefault();
+        console.log(emailparam[2])
+        console.log(registerData.passwd)
         var isPassValid = contraseñaValidar();
         if (isPassValid){
-            //var aux = respActualizar['respuesta'][0]['codigoRespuesta'];
+            const respActualizar = await ActualizarPass(emailparam[2], registerData.passwd);
+            console.log(respActualizar);
             //var mensaje = respActualizar['respuesta'][0]['detalleResultado'];
-            
-            const registerUsuario = {
-                email: emailparam[2],
-                password: registerData.passwdActual,
-            };
-
-            //Login Service
-            const resp = await LoginService(registerUsuario);
-		    const r = JSON.parse(resp);
-		    console.log(r);
-
-            if (r.login[0].codigoResultadoLogin === 0) {
-                console.log('Usuario Correcto');
-                const respActualizar = await ActualizarPass(emailparam[2], registerData.passwd);
-                console.log(respActualizar);
-                if (respActualizar['respuesta'].length === 1){
-                    setIsValid(true);
-                    setShowModal(true)
-                    setTitle("Restaurar Contraseña ")
-                    setMsj("Contraseña modificada correctamente.")
-                } else if (respActualizar['respuesta'].length === 0){
-                    setShowModal(true)
-                    setTitle("Error en la restauración")
-                    setMsj("La nueva contraseña ya fue utilizada anteriormente.")
-                }
-            } else {
+            if (respActualizar['respuesta'].length === 1){
+                setIsValid(true);
                 setShowModal(true)
-                setTitle("Error de contraseña")
-                setMsj("La contraseña actual es incorrecta.")
+                setTitle("Restaurar Contraseña")
+                setMsj("Su contraseña ha sido modificada correctamente.")
+            }else {
+                setShowModal(true)
+                setTitle("Error de restauración")
+                setMsj("La nueva contraseña ya fue utilizada anteriormente.")
             }
         }
-    };
+	};
 
-    //On Change
     const onchange = (event) => {
         setRegisterData((prev) => ({
             ...prev,
@@ -142,31 +116,14 @@ const FormModificarPass = () => {
     return (  
         <main>
             <form onSubmit={onSubmit}>
-                <div className="boxCentral">
+                <div className="central">
                     <div className="contenedorTitulo">   
-                        <label className="titulo">Modificar Contraseña</label>
+                        <label className="titulo">Restaurar Contraseña</label>
                     </div>
                     <div className="leyenda">   
                         <label>
-                            Para poder modificar su contraseña ingrese la clave anterior
-                            y una nueva clave.
+                            Ingrese una nueva contraseña.
                         </label>
-                    </div>
-                    <div className="boxEmail">
-                        <Label  htmlFor="">Contraseña Actual <LabelReq htmlFor=""> *</LabelReq></Label>
-                        <Inputc 
-                            type="password"
-                            placeholder=""
-                            name="passwdActual"
-                            value={passwdActual}
-                            onChange={onchange}
-                            min="7"
-                            max="20"
-                            required 
-                            />
-                            <RestriccionPass>
-                                Ingresar su contraseña que posee actualmente.
-						    </RestriccionPass>
                     </div>
                     <div className="boxEmail">
                         <Label  htmlFor="">Nueva Contraseña <LabelReq htmlFor=""> *</LabelReq></Label>
@@ -182,7 +139,9 @@ const FormModificarPass = () => {
                         />
                         <RestriccionPass>
 						    La contraseña debe contener desde 7 a 20 caracteres,
-							se exige una letra minuscula y una mayuscula, un numero y un caracter especial.
+							se exige una letra minuscula y una mayuscula, 
+                            un numero y un caracter especial.
+
 						</RestriccionPass>
                     </div>
                     <div className="boxEmail">
@@ -203,7 +162,7 @@ const FormModificarPass = () => {
                             <span className="obligatorio">* Campos requeridos</span>
                         </div>
                         <div className="blockCrearCuenta">
-                            <button className="buttomActualizar" onClick={handleClose} >Actualizar</button>
+                            <button className="buttomRestablecerPass">Restablecer Contraseña</button>
                         </div>
                     </div>
                 </div>
@@ -218,4 +177,4 @@ const FormModificarPass = () => {
     );
 }
  
-export default FormModificarPass;
+export default FormRestaurarPass;

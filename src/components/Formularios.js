@@ -107,6 +107,27 @@ const Inputs = styled.input`
     }
 `;
 
+//Input cortos
+const Inputc = styled.input`
+    text-size: 12px
+    font-family: Arial, Helvetica, sans-serif
+    letter-spacing: 0.8px
+    color: red;
+    width: 70%;
+    background: #FFFFFF;
+    border-radius: 3px;
+    height: 45px;
+    line-height: 45px;
+    padding 0 15px 0 15px;
+    border: 0.5px solid rgb(194, 194, 194);
+
+    &:focus {
+        border: 2px solid ${colores.borde};
+        outline: none;
+        box-shadow: 3px 0px 15px rgba(163, 163, 163, 0.4);
+    }
+`;
+
 //Input de los formularios Polizas y Grupos
 const Inputu = styled.input`
     text-size: 12px
@@ -222,4 +243,5 @@ export {
     FormPaciente,
     RestriccionPass,
     ContenedorTitulo,
+    Inputc,
 };

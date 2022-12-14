@@ -44,7 +44,6 @@ const FormLogin = () => {
 		else {
 			console.log('Por favor acepta el captcha')
 			setBtnValid(false)
-
 		}
 	}
 
