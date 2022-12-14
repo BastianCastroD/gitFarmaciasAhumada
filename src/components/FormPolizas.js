@@ -19,6 +19,7 @@ const FormPolizas = () => {
     const showData = async () => {
         setDataTable(undefined)
         const response = await PolizaService(filtrarValue)
+        console.log(response.response);
 
         setDataTable(response.response)
     }
@@ -29,51 +30,7 @@ const FormPolizas = () => {
 
     };
 
-    const columns = [
-        {
-            accessorKey: 'codigoPoliza',
-            header: 'Codigo',
-            size: 20,
-        },
-        {
-            accessorKey: 'estadoPolizaAhumada',
-            header: 'Estado',
-            size: 100,
-        },
-        {
-            accessorKey: 'grupoAhumada',
-            header: 'Grupo',
-            enableEditing: false,
-            size: 100,
-        },
-        {
-            accessorKey: 'nombrePoliza',
-            header: 'Nombre',
-            size: 200,
-        },
-        {
-            accessorKey: 'polizaAceptaBioequivalente',
-            header: 'Bioequivalente',
-            size: 10,
 
-        },
-        {
-            accessorKey: 'rutEmpresa',
-            header: 'RUT',
-            size: 120,
-        },
-        {
-            accessorKey: 'terminoBeneficio',
-            header: 'Termino Beneficio',
-            size: 120,
-        },
-        {
-            accessorKey: 'cuentaLiquidador',
-            header: 'Cuenta Liquidador',
-            enableEditing: false,
-            size: 120,
-        },
-    ];
 
     return (
         <main>
@@ -108,7 +65,6 @@ const FormPolizas = () => {
                         null
                         : <DataTableEditAndExport
                             data={dataTable}
-                            columns={columns}
                             export={true}
                         />
                 }

@@ -6,7 +6,7 @@ import Delete from '@mui/icons-material/Delete';
 import Edit from '@mui/icons-material/Edit';
 import ModalConfirmar from "../ModalConfirmar";
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import { ExportToCsv } from 'export-to-csv-fix-source-map';
+import { ExportToCsv } from 'export-to-csv';
 import { MRT_Localization_ES } from 'material-react-table/locales/es';
 import "../../styles/PolizasGrupos.css";
 import { PolizaServiceUpdate } from "../../api/PolizaService";
@@ -49,7 +49,51 @@ const DataTablePoliza = props => {
     setTableData([...tableData]);
 
   }
+  const columns = [
+    {
+      accessorKey: 'codigoPoliza',
+      header: 'Codigo',
+      size: 20,
+    },
+    {
+      accessorKey: 'estadoPolizaAhumada',
+      header: 'Estado',
+      size: 100,
+    },
+    {
+      accessorKey: 'grupoAhumada',
+      header: 'Grupo*',
+      enableEditing: false,
+      size: 100,
+    },
+    {
+      accessorKey: 'nombrePoliza',
+      header: 'Nombre',
+      size: 200,
+    },
+    {
+      accessorKey: 'polizaAceptaBioequivalente',
+      header: 'Bioequivalente',
+      size: 10,
 
+    },
+    {
+      accessorKey: 'rutEmpresa',
+      header: 'RUT',
+      size: 120,
+    },
+    {
+      accessorKey: 'terminoBeneficio',
+      header: 'Termino Beneficio',
+      size: 120,
+    },
+    {
+      accessorKey: 'cuentaLiquidador',
+      header: 'Cuenta Liquidador*',
+      enableEditing: false,
+      size: 120,
+    },
+  ];
   //Se crea la vairable con informacion de la data table
   const [tableData, setTableData] = useState(() => props.data)
 
@@ -81,12 +125,40 @@ const DataTablePoliza = props => {
     showLabels: true,
     useBom: true,
     useKeysAsHeaders: false,
-    headers: props.columns.map((c) => c.header),
+    headers: columns.map((c) => c.header),
   };
 
   const csvExporter = new ExportToCsv(csvOptions);
 
   const handleExportRows = (rows) => {
+    console.log(rows);
+    rows.map((row) => {
+      if (row.original.codigoPoliza === undefined) {
+        row.original.codigoPoliza = "";
+
+      } else if (row.original.estadoPolizaAhumada === undefined) {
+        row.original.estadoPolizaAhumada = "";
+
+      } else if (row.original.grupoAhumada === undefined) {
+        row.original.grupoAhumada = "";
+
+      } else if (row.original.nombrePoliza === undefined) {
+        row.original.nombrePoliza = "";
+
+      } else if (row.original.polizaAceptaBioequivalente === undefined) {
+        row.original.polizaAceptaBioequivalente = "";
+
+      } else if (row.original.rutEmpresa === undefined) {
+        row.original.rutEmpresa = "";
+
+      } else if (row.original.terminoBeneficio === undefined) {
+        row.original.terminoBeneficio = "";
+
+      } else if (row.original.cuentaLiquidador === undefined) {
+        row.original.cuentaLiquidador = "";
+      }
+    })
+    console.log(rows);
     csvExporter.generateCsv(rows.map((row) => row.original));
   };
 
@@ -95,7 +167,7 @@ const DataTablePoliza = props => {
     <>
       <div className="boxTabla">
         <MaterialReactTable
-          columns={props.columns}
+          columns={columns}
           data={tableData}
           positionToolbarAlertBanner="bottom"
           editingMode="row"
