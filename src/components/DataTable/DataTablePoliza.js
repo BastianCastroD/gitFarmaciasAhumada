@@ -112,17 +112,6 @@ const DataTablePoliza = props => {
     console.log('');
   };
 
-  //Opciones de la creacion de csv
-  const csvOptions = {
-    fieldSeparator: ',',
-    quoteStrings: '"',
-    decimalSeparator: '.',
-    showLabels: true,
-    useBom: true,
-    useKeysAsHeaders: false,
-    headers: columns.map((c) => c.header),
-  };
-
   const downloadExcel = (rows) => {
     const newData = rows.map(row => {
       return getRows(row);
