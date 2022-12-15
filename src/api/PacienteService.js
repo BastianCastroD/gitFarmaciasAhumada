@@ -65,7 +65,6 @@ export const GenerarToken = async (data) => {
 	};
 	const response = axios(config)
 		.then(({ data: outActualizar }) => {
-			console.log(outActualizar);
 			return outActualizar;
 		})
 		.catch((error) => {

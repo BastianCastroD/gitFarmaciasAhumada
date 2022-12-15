@@ -28,7 +28,6 @@ const FormOlvidasteContraseña = () => {
 		if (tokenIsValid) {
 			//Redireccionar a restaurar contraseña.
 			navigate(`/RestaurarPass/${registerData.user}`);
-			console.log("Token Valido");
 			handleClear();
 		}
 	}

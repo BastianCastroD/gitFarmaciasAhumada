@@ -35,15 +35,11 @@ const FormLogin = () => {
 	const captcha = useRef(null);
 
 	const validCaptcha = () => {
-		console.log(captcha.current);
 		if (captcha.current.getValue().length > 0) {
-			console.log('El usuario no es un robot')
 			setBtnValid(true)
 		}
 		else {
-			console.log('Por favor acepta el captcha')
 			setBtnValid(false)
-
 		}
 	}
 
@@ -65,19 +61,15 @@ const FormLogin = () => {
 	const onSubmit = async (e) => {
 		e.preventDefault();
 
-		//console.log(registerData);
-
 		const resp = await LoginService(registerData);
 		const r = JSON.parse(resp);
-		console.log(r);
+
 
 		// Condicional segun el codigo de respuesta (0=ok - 1=No Existe - 2=Usuario Invalido - 3=Pass Expirada)
 		if (r.login[0].codigoResultadoLogin === 0) {
-			console.log('Usuario Correcto');
 			switch (r.login[0].tipo) {
 
 				case "Empresa":
-					console.log("Llegue 2");
 					navigate(`/HomeEmpresa/${registerData.email}`);
 					break;
 				case "Administrador":
@@ -103,7 +95,6 @@ const FormLogin = () => {
 			setMsj("La contraseña ingresada se encuentra expirada.")
 			navigate("/CambiarPass")
 		}
-		console.log(resp);
 	};
 
 	return (
