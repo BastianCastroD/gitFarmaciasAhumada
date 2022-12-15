@@ -6,7 +6,7 @@ export const PolizaService = async (data) => {
         method: 'get',
         url: 'http://localhost:8181/cxf/polizas/service/buscarPoliza',
         headers: {
-            'codigo': 'EURA'
+            'codigo': data
         }
     };
     const response = axios(config)
@@ -21,7 +21,7 @@ export const PolizaService = async (data) => {
 }
 
 export const PolizaServiceUpdate = async (grupo, nombre, codigo, rut, fecha, bio) => {
-
+    console.log(grupo, nombre, codigo, rut, fecha, bio);
     const config = {
         method: 'put',
         url: 'http://localhost:8181/cxf/actualizar/service/actualizaPoliza',

@@ -31,7 +31,7 @@ class UploadFile extends Component {
 
         // Update the formData object
         formData.append(
-            "myFile",
+            "csv",
             this.state.selectedFile,
             this.state.selectedFile.name
         );
@@ -45,9 +45,7 @@ class UploadFile extends Component {
     };
 
     render() {
-
         return (
-
             <>
                 <Form>
                     <Row>
@@ -59,15 +57,9 @@ class UploadFile extends Component {
                                 Subir archivo
                             </Button>
                         </Col>
-
                     </Row>
                 </Form>
-
             </>
-
-
-
-
         );
     }
 }
