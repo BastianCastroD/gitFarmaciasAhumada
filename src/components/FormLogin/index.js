@@ -12,15 +12,15 @@ import {
 	GrupoInput,
 	Inputp,
 } from "../Formularios";
-import Modal from '../Modal';
+
 import ModalTest from '../ModalTest';
-import ModalAlert from '../ModalAlert';
+
 
 const FormLogin = () => {
 
 	const [showModal, setShowModal] = useState(false);
 	const handleClose = () => setShowModal(false);
-	const handleShow = () => setShowModal(true);
+
 
 	const [msj, setMsj] = useState();
 	const [title, setTitle] = useState();
@@ -29,7 +29,6 @@ const FormLogin = () => {
 	//	setShowModal(false);
 	//}
 	const [btnValid, setBtnValid] = useState(false);
-	console.log(btnValid);
 
 	const navigate = useNavigate();
 
@@ -62,11 +61,6 @@ const FormLogin = () => {
 		}));
 	};
 
-	// const fecth = async (payload) => {
-	// 	const resp = await LoginService(payload);
-	// 	console.log(resp);
-	// }
-
 	// Validaciones del Login
 	const onSubmit = async (e) => {
 		e.preventDefault();
@@ -76,9 +70,6 @@ const FormLogin = () => {
 		const resp = await LoginService(registerData);
 		const r = JSON.parse(resp);
 		console.log(r);
-
-		// const {outLoginModel[0]}=resp
-		// console.log(codigoresultado);
 
 		// Condicional segun el codigo de respuesta (0=ok - 1=No Existe - 2=Usuario Invalido - 3=Pass Expirada)
 		if (r.login[0].codigoResultadoLogin === 0) {
@@ -176,7 +167,7 @@ const FormLogin = () => {
 							</div>
 						</div>
 					</form>
-					<ModalTest title={title} show={showModal} handleClose={handleClose} msj={msj}/>
+					<ModalTest title={title} show={showModal} handleClose={handleClose} msj={msj} />
 				</div>
 			</div>
 		</div>

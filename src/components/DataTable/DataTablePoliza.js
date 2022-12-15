@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
-import MaterialReactTable, { MRT_FullScreenToggleButton, MRT_ToggleGlobalFilterButton, MRT_ToggleFiltersButton } from 'material-react-table';
-import { Box, IconButton, Tooltip } from '@mui/material';
+import MaterialReactTable from 'material-react-table';
 import Button from 'react-bootstrap/Button';
-import Delete from '@mui/icons-material/Delete';
-import Edit from '@mui/icons-material/Edit';
 import ModalConfirmar from "../ModalConfirmar";
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { ExportToCsv } from 'export-to-csv-fix-source-map';
 import { MRT_Localization_ES } from 'material-react-table/locales/es';
 import "../../styles/PolizasGrupos.css";
@@ -20,8 +16,6 @@ const DataTablePoliza = props => {
   const [msj, setMsj] = useState();
   const [showModalConfirmar, setShowModalConfirmar] = useState(false);
   //Modal Upload Variables
-  const [titleUpload, setTitleUpload] = useState();
-  const [msjUpload, setMsjUpload] = useState();
   const [showModalUpload, setShowModalUpload] = useState(false);
   //Edit table variables
   const [values, setValues] = useState();
@@ -115,7 +109,7 @@ const DataTablePoliza = props => {
 
   //Metodo para handle la cancelacion de la edicion de informacion de la table
   const handleCancelRowEdits = () => {
-    console.log('a');
+    console.log('');
   };
 
   //Opciones de la creacion de csv
@@ -182,7 +176,7 @@ const DataTablePoliza = props => {
 
 
 
-  const csvExporter = new ExportToCsv(csvOptions);
+
 
 
 

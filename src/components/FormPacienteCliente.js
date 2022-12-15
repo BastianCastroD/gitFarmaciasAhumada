@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { Label, LabelReq, Inputs, Inputp, GrupoInput, RestriccionPass, } from "../components/Formularios";
 import { NavLink } from "react-router-dom";
 import ModalTest from './ModalTest';
-import Modal from "./Modal";
-import ModalAlert from "./ModalAlert";
 
 const initialForm = {
 	rut: '',
@@ -25,7 +23,6 @@ const FormPacienteCliente = () => {
 	const [title, setTitle] = useState();
 	const [msj, setMsj] = useState();
 	const [checkBox, setCheckbox] = useState(false);
-	const delay = ms => new Promise(res => setTimeout(res, ms));
 	const [registerData, setRegisterData] = useState({
 		rut: '',
 		ndocumento: '',
@@ -41,8 +38,6 @@ const FormPacienteCliente = () => {
 
 	const [tokenIsValid, setTokenIsValid] = useState(false);
 	const [showModal, setShowModal] = useState(false);
-	const handleClose = () => setShowModal(false);
-	const handleShow = () => setShowModal(true);
 
 	const handleCloseToken = () => {
 		setShowModal(false);
@@ -102,7 +97,6 @@ const FormPacienteCliente = () => {
 	const handleClickConfirmarToken = async (e) => {
 		e.preventDefault();
 		const respValidToken = await ValidarToken(token, registerData.user);
-		var msj = respValidToken['validaToken'][0]['detalleResultado'];
 		setShowModal(true)
 		setTitle("Error de token")
 		setMsj("El token ingresado no es correcto.")
@@ -121,7 +115,6 @@ const FormPacienteCliente = () => {
 		e.preventDefault();
 		const respValidar = await Validate(registerData.rut, registerData.ndocumento);
 		var isValidarRut = validarRut(respValidar);
-		console.log(isValidarRut);
 		var isPassValid = contraseñaValidar();
 		if (isPassValid && isValidarRut) {
 			const resp = await PacienteService(registerData)
@@ -136,6 +129,7 @@ const FormPacienteCliente = () => {
 				setMsj("Usuario creado de manera exitosa.")
 				//Envio de token 
 				const respToken = await GenerarToken(registerData.user);
+				console.log(respToken);
 				setcheckToken(true);
 			}
 		}
@@ -143,13 +137,12 @@ const FormPacienteCliente = () => {
 	};
 
 	// Validar RUT y N° Documento
-	function validarRut(respValidar){
-		console.log(registerData);
-		console.log(respValidar);
+	function validarRut(respValidar) {
+
 		var aux = respValidar['success'];
 		if (aux === true) {
 			return true;
-		} else  if (aux === false) {
+		} else if (aux === false) {
 			setShowModal(true)
 			setTitle("Error de verificacion")
 			setMsj("El RUT o N° Documento es invalido.")
@@ -378,7 +371,7 @@ const FormPacienteCliente = () => {
 					</div>
 				</div>
 			</form>
-			<ModalTest title={title} show={showModal} handleClose={handleCloseToken} msj={msj}/>
+			<ModalTest title={title} show={showModal} handleClose={handleCloseToken} msj={msj} />
 		</main >
 	);
 }

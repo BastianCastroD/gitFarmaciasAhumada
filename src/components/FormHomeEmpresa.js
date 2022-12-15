@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Label, GrupoInput, InputH } from "./Formularios";
-import { Route, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { HomeServiceEmpresa } from "../api/HomeEmpresaService";
 //import { LoginService } from "../api/LoginService";
 
@@ -16,31 +16,26 @@ const FormHome = () => {
 		cargo: '',
 	})
 	const location = useLocation();
-
 	const emailparam = location.pathname.split("/")
-	console.log(emailparam[2])
-
 	const home = async (email) => {
 		const response = await HomeServiceEmpresa(email)
-		console.log(response)
-		console.log(response.usuarioEmpresa[0].apellido)
-        const { rut, nombre, apellido, apellido2, correo, kamConvenios, kamCorreo, cargo } = response.usuarioEmpresa[0];
+		const { rut, nombre, apellido, apellido2, correo, kamConvenios, kamCorreo, cargo } = response.usuarioEmpresa[0];
 		setInitialState({
 			rut: rut,
-            nombre: nombre,
-            apellido: apellido,
-            apellido2: apellido2,
-            correo: correo,
-            kamConvenios: kamConvenios,
-            kamCorreo: kamCorreo,
-            cargo: cargo,
-        })
+			nombre: nombre,
+			apellido: apellido,
+			apellido2: apellido2,
+			correo: correo,
+			kamConvenios: kamConvenios,
+			kamCorreo: kamCorreo,
+			cargo: cargo,
+		})
 	}
 	useEffect(() => {
 		home(emailparam[2])
 	}, [])
 
-    return (
+	return (
 		<main>
 			<div className="row align-items-center">
 				<div>
@@ -53,39 +48,39 @@ const FormHome = () => {
 								<GrupoInput>
 									<Label>RUT</Label>
 									<InputH
-									className="inputForm"
-									value={initialState.rut}
-									type="text"
-									readOnly
-								/>
+										className="inputForm"
+										value={initialState.rut}
+										type="text"
+										readOnly
+									/>
 								</GrupoInput>
 								<GrupoInput>
 									<Label>Nombre</Label>
 									<InputH
-									className="inputForm"
-									type="text"
-									value={initialState.nombre}
-									readOnly
-								/>
+										className="inputForm"
+										type="text"
+										value={initialState.nombre}
+										readOnly
+									/>
 								</GrupoInput>
 								<GrupoInput>
 									<Label>1° Apellido </Label>
 									<InputH
-									className="inputForm"
-									type="text"
-									value={initialState.apellido}
-									readOnly
-								/>
+										className="inputForm"
+										type="text"
+										value={initialState.apellido}
+										readOnly
+									/>
 								</GrupoInput>
 								<GrupoInput>
 									<Label>2° Apellido </Label>
 									<InputH
-									className="inputForm"
-									type="text"
-									value={initialState.apellido2}
-									readOnly
-								/>
-								</GrupoInput>							
+										className="inputForm"
+										type="text"
+										value={initialState.apellido2}
+										readOnly
+									/>
+								</GrupoInput>
 							</div>
 							<div class="col-6">
 								<div className="contenedorTitulo">
@@ -94,12 +89,12 @@ const FormHome = () => {
 								<GrupoInput>
 									<Label>Correo Electronico</Label>
 									<InputH
-									className="inputForm"
-									type="text"
-									value={initialState.correo}
-									readOnly
-								/>
-								</GrupoInput>					
+										className="inputForm"
+										type="text"
+										value={initialState.correo}
+										readOnly
+									/>
+								</GrupoInput>
 							</div>
 						</div>
 						<div className="row">
@@ -110,20 +105,20 @@ const FormHome = () => {
 								<GrupoInput>
 									<Label>Nombre Kam </Label>
 									<InputH
-									className="inputForm"
-									type="text"
-									value={initialState.kamConvenios}
-									readOnly
-								/>
+										className="inputForm"
+										type="text"
+										value={initialState.kamConvenios}
+										readOnly
+									/>
 								</GrupoInput>
 								<GrupoInput>
 									<Label>Correo Electronico Kam </Label>
 									<InputH
-									className="inputForm"
-									type="text"
-									value={initialState.kamCorreo}
-									readOnly
-								/>
+										className="inputForm"
+										type="text"
+										value={initialState.kamCorreo}
+										readOnly
+									/>
 								</GrupoInput>
 							</div>
 							<div class="col-6">
@@ -133,11 +128,11 @@ const FormHome = () => {
 								<GrupoInput>
 									<Label>Cargo </Label>
 									<InputH
-									className="inputForm"
-									type="text"
-									value={initialState.cargo}
-									readOnly
-								/>
+										className="inputForm"
+										type="text"
+										value={initialState.cargo}
+										readOnly
+									/>
 								</GrupoInput>
 							</div>
 						</div>

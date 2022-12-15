@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../styles/PolizasGrupos.css";
 import { ContenedorTitulo } from "./Formularios";
 import { PolizaService } from "../api/PolizaService";
@@ -19,8 +19,6 @@ const FormPolizas = () => {
     const showData = async () => {
         setDataTable(undefined)
         const response = await PolizaService(filtrarValue)
-        console.log(response.response);
-
         setDataTable(response.response)
     }
 

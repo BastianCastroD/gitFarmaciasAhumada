@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { ContenedorTitulo, InputB } from "./Formularios";
+import { ContenedorTitulo } from "./Formularios";
 import { EliminarUsuario } from "../api/EliminarUsuario";
 
 import DataTableDeleteAndExport from "./DataTable/DataTableDeleteAndExport";
-import styled from 'styled-components';
-// import Modal from "./Modal";
-// import ModalAlertConfirmar from "./ModalAlert/indexConfirmar";
-// import ModalAlert from './ModalAlert';
 import "../styles/AdminUsuarios.css";
 import ModalTest from "./ModalTest";
 import ModalConfirmar from "./ModalConfirmar";
@@ -19,7 +14,6 @@ const FormAdminUsuarios = () => {
     const [msj, setMsj] = useState();
     const [showModalConfirmar, setShowModalConfirmar] = useState(false);
     const [showModal, setShowModal] = useState(false);
-    const history = useNavigate();
     const [idElminar, setIdElminar] = useState("");
     const handleCloseConfirmar = () => {
         setShowModalConfirmar(false);
@@ -36,22 +30,10 @@ const FormAdminUsuarios = () => {
         setTitle("Eliminar usuario existente")
         setShowModal(true)
         setMsj(detalleRespuesta)
-        if (codigoRespuesta == 0) {
+        if (codigoRespuesta === 0) {
             setIdElminar("");
         }
     }
-
-    const onSubmit = async (e) => {
-        history("/NuevoClienteEmpresa");
-    };
-
-    //Llamada a la api para eliminar usuario.
-    const onSubmitEliminar = async (e) => {
-        e.preventDefault();
-        setShowModalConfirmar(true)
-        setTitle("Eliminar usuario existente")
-        setMsj("¿Desea eliminar el usuario seleccionado?")
-    };
 
 
     // DataTable
@@ -63,7 +45,6 @@ const FormAdminUsuarios = () => {
     const showData = async () => {
         const response = await ListarUsuarios()
         setUsers(response.usuario)
-        console.log(response.usuario);
     }
 
     useEffect(() => {
@@ -110,7 +91,6 @@ const FormAdminUsuarios = () => {
         },
     ];
 
-    const clickhandler = name => console.log("delete", name);
 
     return (
         <main>

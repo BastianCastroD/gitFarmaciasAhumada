@@ -15,9 +15,6 @@ const FormHome = () => {
 		celular: '',
 	})
 
-	const [registerData, setRegisterData] = useState({
-		email: '',
-	});
 
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -31,7 +28,7 @@ const FormHome = () => {
 	const home = async (email) => {
 		const response = await HomeService(email)
 		const datosUsuarios = JSON.parse(response)
-		
+
 		const { rut, nombre, apellido, apellido2, correo, celular } = datosUsuarios.usuario[0];
 
 		setInitialState({
@@ -43,7 +40,7 @@ const FormHome = () => {
 			celular
 		})
 	}
-	
+
 	useEffect(() => {
 		home(emailparam[2])
 	}, [])
@@ -134,10 +131,10 @@ const FormHome = () => {
 								/>
 							</GrupoInput>
 							<div id="accionRegistro">
-              					<div id="botonModificar">
-								  <button onClick={handleClick} >Modificar Contraseña</button>
-              					</div>
-            				</div>
+								<div id="botonModificar">
+									<button onClick={handleClick} >Modificar Contraseña</button>
+								</div>
+							</div>
 						</GrupoInput>{" "}
 					</div>
 				</div>

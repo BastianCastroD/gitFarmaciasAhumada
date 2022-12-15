@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import {Label, GrupoInput, Inputs, LabelReq, RestriccionPass, Inputc} from "./Formularios";
+import { Label, LabelReq, RestriccionPass, Inputc } from "./Formularios";
 import "../styles/OlvidasteContraseña.css";
-import { GenerarToken, ValidarToken} from "../api/PacienteService";
+import { GenerarToken, ValidarToken } from "../api/PacienteService";
 import ModalTest from "./ModalTest";
 
 
@@ -12,44 +12,43 @@ const initialForm = {
 
 const FormOlvidasteContraseña = () => {
 
-    const navigate = useNavigate();
-    const [title, setTitle] = useState();
+	const navigate = useNavigate();
+	const [title, setTitle] = useState();
 	const [msj, setMsj] = useState();
-    const [registerData, setRegisterData] = useState({
+	const [registerData, setRegisterData] = useState({
 		user: '',
 	});
 
-    const [tokenIsValid, setTokenIsValid] = useState(false);
+	const [tokenIsValid, setTokenIsValid] = useState(false);
 	const [showModal, setShowModal] = useState(false);
-	const handleClose = () => setShowModal(false);
-	const handleShow = () => setShowModal(true);
 
-    const handleCloseToken = () => {
+
+	const handleCloseToken = () => {
 		setShowModal(false);
 		if (tokenIsValid) {
-            //Redireccionar a restaurar contraseña.
+			//Redireccionar a restaurar contraseña.
 			navigate(`/RestaurarPass/${registerData.user}`);
-            console.log("Token Valido");
+			console.log("Token Valido");
 			handleClear();
 		}
 	}
 
-    const [checkToken, setcheckToken] = useState(false);
+	const [checkToken, setcheckToken] = useState(false);
 	const [token, setToken] = useState("");
 
-    const { user } = registerData;
+	const { user } = registerData;
 
-    const onchange = (event) => {
-        setRegisterData((prev) => ({
-            ...prev,
-            [event.target.name]: event.target.value,
-        }));
+	const onchange = (event) => {
+		setRegisterData((prev) => ({
+			...prev,
+			[event.target.name]: event.target.value,
+		}));
 	};
 
-    const handleClickConfirmarToken = async (e) => {
+	const handleClickConfirmarToken = async (e) => {
 		e.preventDefault();
 		const respValidToken = await ValidarToken(token, registerData.user);
-		var msj = respValidToken['validaToken'][0]['detalleResultado'];
+
 		setShowModal(true)
 		setTitle("Error de token")
 		setMsj("El token ingresado no es correcto.")
@@ -60,43 +59,44 @@ const FormOlvidasteContraseña = () => {
 		}
 	};
 
-    const onChangeToken = (event) => {
+	const onChangeToken = (event) => {
 		setToken(event.target.value);
 	}
 
-    const onSubmit = async (e) => {
+	const onSubmit = async (e) => {
 		e.preventDefault();
-        //Envio de token 
+		//Envio de token 
 		const respToken = await GenerarToken(registerData.user);
+		console.log(respToken);
 		setcheckToken(true);
 	};
 
-    const handleClear = () => {
+	const handleClear = () => {
 		setRegisterData(initialForm);
 		setToken("");
 	};
 
-    return (  
-        <main>
-            <form onSubmit={onSubmit}>
-                <div className="central">
-                    <div className="contenedorTitulo">   
-                        <label className="titulo">¿ Olvidaste tu contraseña ?</label>
-                    </div>
-                    <div className="leyenda">   
-                        <label>
-                            Introduzca su dirección de correo electrónico
-                            a continuación para recibir un enlace 
-                            de restablecimiento de contraseña.
-                        </label>
-                    </div>
-                    <div className="boxEmail">
+	return (
+		<main>
+			<form onSubmit={onSubmit}>
+				<div className="central">
+					<div className="contenedorTitulo">
+						<label className="titulo">¿ Olvidaste tu contraseña ?</label>
+					</div>
+					<div className="leyenda">
+						<label>
+							Introduzca su dirección de correo electrónico
+							a continuación para recibir un enlace
+							de restablecimiento de contraseña.
+						</label>
+					</div>
+					<div className="boxEmail">
 						<Label>Correo Electronico <LabelReq> *</LabelReq></Label>
 						<Inputc
 							type="email"
 							placeholder=""
 							name="user"
-						    value={user}
+							value={user}
 							onChange={onchange}
 							required
 						/>
@@ -109,20 +109,20 @@ const FormOlvidasteContraseña = () => {
 							<div className="blockCrearCuenta">
 								<button className="buttomRestablecerContraseña">Generar Token</button>
 							</div>
-                    	</div>
+						</div>
 					)}
-                    {checkToken === !false && (
+					{checkToken === !false && (
 						<div>
 							<div className="boxEmail">
 								<Label>Confirmar Token <LabelReq> *</LabelReq></Label>
 								<Inputc
 									type="text"
 									placeholder=""
-								    name="token"
+									name="token"
 									value={token}
 									onChange={onChangeToken}
-									required 
-                                />
+									required
+								/>
 								<RestriccionPass>
 									Se ha enviado un token de verificación a tu correo
 								</RestriccionPass>
@@ -132,11 +132,11 @@ const FormOlvidasteContraseña = () => {
 							</div>
 						</div>
 					)}
-                </div>
-            </form>
-            <ModalTest title={title} show={showModal} handleClose={handleCloseToken} msj={msj}/>
-        </main>
-    );
+				</div>
+			</form>
+			<ModalTest title={title} show={showModal} handleClose={handleCloseToken} msj={msj} />
+		</main>
+	);
 }
- 
+
 export default FormOlvidasteContraseña;

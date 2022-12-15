@@ -1,6 +1,5 @@
-import React, { useState, Component, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/FormClienteEmpresa.css";
-import styles from "../styles/FormPacienteCliente.css";
 import { EmpresaService, ConvenioService } from "../api/EmpresaService";
 import { LIstaEmpresasService, } from "../api/LIstaEmpresasService";
 import {
@@ -12,8 +11,6 @@ import {
 	Inputp
 } from "../components/Formularios";
 import ModalTest from './ModalTest';
-import Modal from "./Modal";
-import ModalAlert from "./ModalAlert";
 import BaseSelect from "react-select";
 import FixRequiredSelect from "../FixRequiredSelect";
 

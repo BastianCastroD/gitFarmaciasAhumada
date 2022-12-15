@@ -1,32 +1,27 @@
 //Importaciones//
-import React, { useState } from "react";
+import React from "react";
 import { LoginService } from "../api/LoginService";
 import "../styles/Login.css";
 import { Formik } from "formik";
 import { useNavigate } from 'react-router-dom';
-import {FormPaciente} from "../components/Formularios";
+import { FormPaciente } from "../components/Formularios";
 import FormLogin from "../components/FormLogin";
-import Modal from "../components/Modal";
-import ModalAlert from "../components/ModalAlert";
+
 
 const Login = () => {
-	const [showModal, setShowModal] = useState(false);
-	const handleClose = () => {
-		setShowModal(false);
-	}
   const history = useNavigate();
 
   LoginService("user@email.com", "password");
 
   const onSubmit = async (e) => {
-		history("/NuevoPacienteCliente");
-	};
+    history("/NuevoPacienteCliente");
+  };
 
   return (
     <main>
       <Formik action="" >
         <FormPaciente>
-					<FormLogin />
+          <FormLogin />
           <div>
             <div className="contenedorTitulo">
               <label className="titulo">Nuevo Paciente Cliente</label>
@@ -42,7 +37,7 @@ const Login = () => {
             </div>
           </div>
         </FormPaciente>
-			</Formik>
+      </Formik>
 
     </main>
   );

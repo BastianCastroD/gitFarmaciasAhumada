@@ -19,7 +19,7 @@ export const PacienteService = async (data) => {
 	};
 	const response = axios(config)
 		.then(({ data: outActualizar }) => {
-			
+
 			return outActualizar;
 		})
 		.catch((error) => {
@@ -31,11 +31,10 @@ export const PacienteService = async (data) => {
 
 // Validar RUT y N° Documento
 export const Validate = async (rut, serie) => {
-	console.log(rut, serie)
-  var data = JSON.stringify({
-    "rut": rut,
-    "serie": serie,
-  });
+	var data = JSON.stringify({
+		"rut": rut,
+		"serie": serie,
+	});
 	const config = {
 		method: 'POST',
 		url: 'http://localhost:8181/cxf/rut/services/validaRut',
@@ -46,7 +45,7 @@ export const Validate = async (rut, serie) => {
 	};
 	const response = axios(config)
 		.then(({ data: outActualizar }) => {
-			
+
 			return outActualizar;
 		})
 		.catch((error) => {
@@ -88,7 +87,7 @@ export const ValidarToken = async (token, user) => {
 
 	const response = axios(config)
 		.then(({ data: outActualizar }) => {
-		
+
 			return outActualizar;
 		})
 		.catch(function (error) {

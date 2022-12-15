@@ -1,7 +1,6 @@
 const axios = require('axios');
 
 export const ValidatePass = async (data) => {
-	console.log(data);
 	const config = {
 		method: 'post',
 		url: 'http://localhost:8181/cxf/validatepass/services/validatepass',
@@ -12,7 +11,6 @@ export const ValidatePass = async (data) => {
 	};
 	const response = axios(config)
 		.then(({ data: outActualizar }) => {
-			console.log(data)
 			return outActualizar;
 		})
 		.catch((error) => {

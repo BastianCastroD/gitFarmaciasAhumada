@@ -19,7 +19,6 @@ export const LoginService = async (data) => {
 	};
 	const response = axios(config)
 		.then(({ data: outLogin }) => {
-			console.log(outLogin);
 			return JSON.stringify(outLogin);
 		})
 		.catch((error) => {

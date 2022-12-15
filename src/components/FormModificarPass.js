@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Label, GrupoInput, Inputs, LabelReq, Inputp, RestriccionPass, Inputc} from "./Formularios";
+import { Label, LabelReq, RestriccionPass, Inputc } from "./Formularios";
 import ModalTest from "./ModalTest";
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ActualizarPass } from "../api/ActualizarPass";
@@ -7,9 +7,9 @@ import { LoginService } from "../api/LoginService";
 import "../styles/ModificarPass.css";
 
 const initialForm = {
-	passwdActual: '',
-	passwd: '',
-	passwd2: '',
+    passwdActual: '',
+    passwd: '',
+    passwd2: '',
 };
 
 const FormModificarPass = () => {
@@ -17,27 +17,27 @@ const FormModificarPass = () => {
     //Variables
     const navigate = useNavigate();
     const [title, setTitle] = useState();
-	const [msj, setMsj] = useState();
+    const [msj, setMsj] = useState();
     const [showModal, setShowModal] = useState(false);
     const [user, setUser] = useState(false);
     const [IsValid, setIsValid] = useState(false);
     //const handleClose = () => setShowModal(false);
 
     const handleClose = () => {
-		setShowModal(false);
-		if (IsValid) {
-			//Redireccionar al home
-			navigate(`/Home/${(emailparam[2])}`);
-			handleClear();
-		}
-	}
+        setShowModal(false);
+        if (IsValid) {
+            //Redireccionar al home
+            navigate(`/Home/${(emailparam[2])}`);
+            handleClear();
+        }
+    }
 
     //Register Data
     const [registerData, setRegisterData] = useState({
         passwdActual: '',
-		passwd: '',
-		passwd2: '',
-	});
+        passwd: '',
+        passwd2: '',
+    });
 
     const { passwdActual, passwd, passwd2 } = registerData;
 
@@ -51,13 +51,11 @@ const FormModificarPass = () => {
     //Validaciones
     const onSubmit = async (e) => {
         e.preventDefault();
-        //console.log(emailparam[2])
-        //console.log(registerData.passwdActual)
         var isPassValid = contraseñaValidar();
-        if (isPassValid){
+        if (isPassValid) {
             //var aux = respActualizar['respuesta'][0]['codigoRespuesta'];
             //var mensaje = respActualizar['respuesta'][0]['detalleResultado'];
-            
+
             const registerUsuario = {
                 email: emailparam[2],
                 password: registerData.passwdActual,
@@ -65,19 +63,17 @@ const FormModificarPass = () => {
 
             //Login Service
             const resp = await LoginService(registerUsuario);
-		    const r = JSON.parse(resp);
-		    console.log(r);
+            const r = JSON.parse(resp);
 
             if (r.login[0].codigoResultadoLogin === 0) {
-                console.log('Usuario Correcto');
                 const respActualizar = await ActualizarPass(emailparam[2], registerData.passwd);
                 console.log(respActualizar);
-                if (respActualizar['respuesta'].length === 1){
+                if (respActualizar['respuesta'].length === 1) {
                     setIsValid(true);
                     setShowModal(true)
                     setTitle("Restaurar Contraseña ")
                     setMsj("Contraseña modificada correctamente.")
-                } else if (respActualizar['respuesta'].length === 0){
+                } else if (respActualizar['respuesta'].length === 0) {
                     setShowModal(true)
                     setTitle("Error en la restauración")
                     setMsj("La nueva contraseña ya fue utilizada anteriormente.")
@@ -96,65 +92,65 @@ const FormModificarPass = () => {
             ...prev,
             [event.target.name]: event.target.value,
         }));
-	};
+    };
 
     // Validacion de contraseña (Caracteres)
-	function contraseñaValidar() {
-		const format = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
-		var contains_number = /\d/.test(registerData.passwd);
-		var contains_special_character = format.test(registerData.passwd);
-		var contains_letter = /[a-zA-Z]/.test(registerData.passwd);
-		var contains_upperletter = /[A-Z]/.test(registerData.passwd);
-		if (!contains_letter) {
-			setShowModal(true)
-			setTitle("Error en la contraseña")
-			setMsj("La contraseña debe contener al menos una letra.")
-			return false;
-		} else if (!contains_upperletter) {
-			setShowModal(true)
-			setTitle("Error en la contraseña")
-			setMsj("La contraseña debe contener al menos una letra mayuscula.")
-		} else if (!contains_number) {
-			setShowModal(true)
-			setTitle("Error en la contraseña")
-			setMsj("La contraseña debe contener al menos un numero.")
-			return false;
-		} else if (!contains_special_character) {
-			setShowModal(true)
-			setTitle("Error en la contraseña")
-			setMsj("La contraseña debe contener al menos un caracter especial.")
-			return false;
-		} else if (registerData.passwd !== registerData.passwd2) {
-			setShowModal(true)
-			setTitle("Error en la contraseña")
-			setMsj("Las contraseñas ingresadas no coinciden.")
-			return false;
-		} else {
-			return true;
-		}
-		return false;
-	};
+    function contraseñaValidar() {
+        const format = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+        var contains_number = /\d/.test(registerData.passwd);
+        var contains_special_character = format.test(registerData.passwd);
+        var contains_letter = /[a-zA-Z]/.test(registerData.passwd);
+        var contains_upperletter = /[A-Z]/.test(registerData.passwd);
+        if (!contains_letter) {
+            setShowModal(true)
+            setTitle("Error en la contraseña")
+            setMsj("La contraseña debe contener al menos una letra.")
+            return false;
+        } else if (!contains_upperletter) {
+            setShowModal(true)
+            setTitle("Error en la contraseña")
+            setMsj("La contraseña debe contener al menos una letra mayuscula.")
+        } else if (!contains_number) {
+            setShowModal(true)
+            setTitle("Error en la contraseña")
+            setMsj("La contraseña debe contener al menos un numero.")
+            return false;
+        } else if (!contains_special_character) {
+            setShowModal(true)
+            setTitle("Error en la contraseña")
+            setMsj("La contraseña debe contener al menos un caracter especial.")
+            return false;
+        } else if (registerData.passwd !== registerData.passwd2) {
+            setShowModal(true)
+            setTitle("Error en la contraseña")
+            setMsj("Las contraseñas ingresadas no coinciden.")
+            return false;
+        } else {
+            return true;
+        }
+        return false;
+    };
 
     const handleClear = () => {
-		setRegisterData(initialForm);
-	};
+        setRegisterData(initialForm);
+    };
 
-    return (  
+    return (
         <main>
             <form onSubmit={onSubmit}>
                 <div className="boxCentral">
-                    <div className="contenedorTitulo">   
+                    <div className="contenedorTitulo">
                         <label className="titulo">Modificar Contraseña</label>
                     </div>
-                    <div className="leyenda">   
+                    <div className="leyenda">
                         <label>
                             Para poder modificar su contraseña ingrese la clave anterior
                             y una nueva clave.
                         </label>
                     </div>
                     <div className="boxEmail">
-                        <Label  htmlFor="">Contraseña Actual <LabelReq htmlFor=""> *</LabelReq></Label>
-                        <Inputc 
+                        <Label htmlFor="">Contraseña Actual <LabelReq htmlFor=""> *</LabelReq></Label>
+                        <Inputc
                             type="password"
                             placeholder=""
                             name="passwdActual"
@@ -162,14 +158,14 @@ const FormModificarPass = () => {
                             onChange={onchange}
                             min="7"
                             max="20"
-                            required 
-                            />
-                            <RestriccionPass>
-                                Ingresar su contraseña que posee actualmente.
-						    </RestriccionPass>
+                            required
+                        />
+                        <RestriccionPass>
+                            Ingresar su contraseña que posee actualmente.
+                        </RestriccionPass>
                     </div>
                     <div className="boxEmail">
-                        <Label  htmlFor="">Nueva Contraseña <LabelReq htmlFor=""> *</LabelReq></Label>
+                        <Label htmlFor="">Nueva Contraseña <LabelReq htmlFor=""> *</LabelReq></Label>
                         <Inputc
                             type="password"
                             placeholder=""
@@ -181,12 +177,12 @@ const FormModificarPass = () => {
                             required
                         />
                         <RestriccionPass>
-						    La contraseña debe contener desde 7 a 20 caracteres,
-							se exige una letra minuscula y una mayuscula, un numero y un caracter especial.
-						</RestriccionPass>
+                            La contraseña debe contener desde 7 a 20 caracteres,
+                            se exige una letra minuscula y una mayuscula, un numero y un caracter especial.
+                        </RestriccionPass>
                     </div>
                     <div className="boxEmail">
-                        <Label  htmlFor="">Confirmar Contraseña <LabelReq htmlFor=""> *</LabelReq></Label>
+                        <Label htmlFor="">Confirmar Contraseña <LabelReq htmlFor=""> *</LabelReq></Label>
                         <Inputc
                             type="password"
                             placeholder=""
@@ -195,7 +191,7 @@ const FormModificarPass = () => {
                             onChange={onchange}
                             min="7"
                             max="20"
-                            required 
+                            required
                         />
                     </div>
                     <div className="blockFinal">
@@ -208,14 +204,14 @@ const FormModificarPass = () => {
                     </div>
                 </div>
             </form>
-            <ModalTest 
-                title={title} 
-                show={showModal} 
+            <ModalTest
+                title={title}
+                show={showModal}
                 handleClose={handleClose}
                 msj={msj}
             />
         </main>
     );
 }
- 
+
 export default FormModificarPass;

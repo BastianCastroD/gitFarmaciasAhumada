@@ -1,8 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import InputGroup from 'react-bootstrap/InputGroup';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
@@ -29,7 +27,6 @@ class UploadFile extends Component {
             if (sheets.length) {
                 const rows = XLSX.utils.sheet_to_csv(wb.Sheets[sheets[0]]);
                 this.setState({ selectedFile: rows });;
-                console.log(rows);
             }
         }
         reader.readAsArrayBuffer(file);
@@ -37,12 +34,9 @@ class UploadFile extends Component {
 
     // On file upload (click the upload button)
     onFileUpload = () => {
-        console.log(this.state.selectedFile);
         // Create an object of formData
-        // console.log(this.state.selectedFile)
         const formData = new FormData();
         const blob = new Blob([this.state.selectedFile], { type: 'text/csv' });
-        console.log(blob);
         // Update the formData object
         formData.append(
             "csv",
