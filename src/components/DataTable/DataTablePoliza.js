@@ -6,11 +6,12 @@ import Delete from '@mui/icons-material/Delete';
 import Edit from '@mui/icons-material/Edit';
 import ModalConfirmar from "../ModalConfirmar";
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import { ExportToCsv } from 'export-to-csv';
+import { ExportToCsv } from 'export-to-csv-fix-source-map';
 import { MRT_Localization_ES } from 'material-react-table/locales/es';
 import "../../styles/PolizasGrupos.css";
 import { PolizaServiceUpdate } from "../../api/PolizaService";
 import ModalUploadFile from "../ModalUploadFile/ModalUploadFile";
+import * as XLSX from 'xlsx/xlsx.mjs';
 
 
 const DataTablePoliza = props => {
@@ -128,39 +129,61 @@ const DataTablePoliza = props => {
     headers: columns.map((c) => c.header),
   };
 
+  const downloadExcel = (rows) => {
+    const newData = rows.map(row => {
+      return getRows(row);
+    })
+    const workSheet = XLSX.utils.json_to_sheet(newData)
+    const workBook = XLSX.utils.book_new()
+    XLSX.utils.book_append_sheet(workBook, workSheet, "polizas")
+    //Buffer
+    let buf = XLSX.write(workBook, { bookType: "xlsx", type: "buffer" })
+    //Binary string
+    XLSX.write(workBook, { bookType: "xlsx", type: "binary" })
+    //Download
+    XLSX.writeFile(workBook, "Polizas.xlsx")
+  }
+
+
+  const getRows = (row) => {
+    delete row.tableData
+    if (row.original.codigoPoliza === undefined) {
+      row.original.codigoPoliza = " ";
+    }
+    if (row.original.estadoPolizaAhumada === undefined) {
+      row.original.estadoPolizaAhumada = " ";
+
+    }
+    if (row.original.grupoAhumada === undefined) {
+      row.original.grupoAhumada = " ";
+
+    }
+    if (row.original.nombrePoliza === undefined) {
+      row.original.nombrePoliza = " ";
+
+    }
+    if (row.original.polizaAceptaBioequivalente === undefined) {
+      row.original.polizaAceptaBioequivalente = " ";
+
+    }
+    if (row.original.rutEmpresa === undefined) {
+      row.original.rutEmpresa = " ";
+
+    }
+    if (row.original.terminoBeneficio === undefined) {
+      row.original.terminoBeneficio = " ";
+
+    }
+    if (row.original.cuentaLiquidador === undefined) {
+      row.original.cuentaLiquidador = " ";
+    }
+    return row.original;
+  };
+
+
+
   const csvExporter = new ExportToCsv(csvOptions);
 
-  const handleExportRows = (rows) => {
-    console.log(rows);
-    rows.map((row) => {
-      if (row.original.codigoPoliza === undefined) {
-        row.original.codigoPoliza = "";
-
-      } else if (row.original.estadoPolizaAhumada === undefined) {
-        row.original.estadoPolizaAhumada = "";
-
-      } else if (row.original.grupoAhumada === undefined) {
-        row.original.grupoAhumada = "";
-
-      } else if (row.original.nombrePoliza === undefined) {
-        row.original.nombrePoliza = "";
-
-      } else if (row.original.polizaAceptaBioequivalente === undefined) {
-        row.original.polizaAceptaBioequivalente = "";
-
-      } else if (row.original.rutEmpresa === undefined) {
-        row.original.rutEmpresa = "";
-
-      } else if (row.original.terminoBeneficio === undefined) {
-        row.original.terminoBeneficio = "";
-
-      } else if (row.original.cuentaLiquidador === undefined) {
-        row.original.cuentaLiquidador = "";
-      }
-    })
-    console.log(rows);
-    csvExporter.generateCsv(rows.map((row) => row.original));
-  };
 
 
   return (
@@ -175,27 +198,12 @@ const DataTablePoliza = props => {
           onEditingRowCancel={handleCancelRowEdits}
           onEditingRowSave={handleSaveRowEdits}
           localization={MRT_Localization_ES}
-          renderToolbarInternalActions={({ table }) => (
-            <>
-              <MRT_ToggleGlobalFilterButton table={table} />
-              <MRT_ToggleFiltersButton table={table} />
-              {(props.export)
-                ?
-                <Tooltip title="Exportar">
-                  <IconButton onClick={() => { handleExportRows(table.getPrePaginationRowModel().rows); }}>
-                    <FileDownloadIcon />
-                  </IconButton>
-                </Tooltip>
-                : null}
-              <MRT_FullScreenToggleButton table={table} />
-            </>
-          )}
           renderBottomToolbarCustomActions={({ table }) => (
             <div style={{ display: 'flex', gap: '0.5rem' }}>
 
               <Button
 
-                onClick={() => { handleExportRows(table.getPrePaginationRowModel().rows); }}
+                onClick={() => { downloadExcel(table.getPrePaginationRowModel().rows) }}
               >
                 Descargar
 

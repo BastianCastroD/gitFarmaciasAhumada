@@ -1,15 +1,87 @@
-import React from "react";
-
-import { FormularioUnic, Label, GrupoInput, Inputs, LabelReq} from "./Formularios";
+import React, {useState} from "react";
+import { useNavigate } from 'react-router-dom';
+import {Label, GrupoInput, Inputs, LabelReq, RestriccionPass, Inputc} from "./Formularios";
 import "../styles/OlvidasteContraseña.css";
+import { GenerarToken, ValidarToken} from "../api/PacienteService";
+import ModalTest from "./ModalTest";
+
+
+const initialForm = {
+	user: '',
+};
 
 const FormOlvidasteContraseña = () => {
+
+    const navigate = useNavigate();
+    const [title, setTitle] = useState();
+	const [msj, setMsj] = useState();
+    const [registerData, setRegisterData] = useState({
+		user: '',
+	});
+
+    const [tokenIsValid, setTokenIsValid] = useState(false);
+	const [showModal, setShowModal] = useState(false);
+	const handleClose = () => setShowModal(false);
+	const handleShow = () => setShowModal(true);
+
+    const handleCloseToken = () => {
+		setShowModal(false);
+		if (tokenIsValid) {
+            //Redireccionar a restaurar contraseña.
+			navigate(`/RestaurarPass/${registerData.user}`);
+            console.log("Token Valido");
+			handleClear();
+		}
+	}
+
+    const [checkToken, setcheckToken] = useState(false);
+	const [token, setToken] = useState("");
+
+    const { user } = registerData;
+
+    const onchange = (event) => {
+        setRegisterData((prev) => ({
+            ...prev,
+            [event.target.name]: event.target.value,
+        }));
+	};
+
+    const handleClickConfirmarToken = async (e) => {
+		e.preventDefault();
+		const respValidToken = await ValidarToken(token, registerData.user);
+		var msj = respValidToken['validaToken'][0]['detalleResultado'];
+		setShowModal(true)
+		setTitle("Error de token")
+		setMsj("El token ingresado no es correcto.")
+		if (respValidToken['validaToken'][0]['codigoResultado'] === 0) {
+			setTokenIsValid(true);
+			setTitle("Verificacion de token")
+			setMsj("Token ingresado correctamente.")
+		}
+	};
+
+    const onChangeToken = (event) => {
+		setToken(event.target.value);
+	}
+
+    const onSubmit = async (e) => {
+		e.preventDefault();
+        //Envio de token 
+		const respToken = await GenerarToken(registerData.user);
+		setcheckToken(true);
+	};
+
+    const handleClear = () => {
+		setRegisterData(initialForm);
+		setToken("");
+	};
+
     return (  
-        <main className="mainUnic">
-            <FormularioUnic action="">
-                <div>
+        <main>
+            <form onSubmit={onSubmit}>
+                <div className="central">
                     <div className="contenedorTitulo">   
-                        <label className="titulo">¿Olvidaste tu contraseña?</label>
+                        <label className="titulo">¿ Olvidaste tu contraseña ?</label>
                     </div>
                     <div className="leyenda">   
                         <label>
@@ -18,20 +90,51 @@ const FormOlvidasteContraseña = () => {
                             de restablecimiento de contraseña.
                         </label>
                     </div>
-                    <GrupoInput>
-                        <Label  htmlFor="">Correo Electronico<LabelReq htmlFor=""> *</LabelReq></Label>
-                        <Inputs type="text" />
-                    </GrupoInput>
-                    <div className="blockRegistro">
-                        <div className="campoRequerido">
-                            <span className="obligatorio">* Campos requeridos</span>
-                        </div>
-                        <div className="blockCrearCuenta">
-                            <button className="buttomRestablecerContraseña">Restablecer mi contraseña</button>
-                        </div>
-                    </div>
+                    <div className="boxEmail">
+						<Label>Correo Electronico <LabelReq> *</LabelReq></Label>
+						<Inputc
+							type="email"
+							placeholder=""
+							name="user"
+						    value={user}
+							onChange={onchange}
+							required
+						/>
+					</div>
+					{checkToken === false && (
+						<div className="blockRequ">
+							<div className="campoRequerido">
+								<span className="obligatorio">* Campos requeridos</span>
+							</div>
+							<div className="blockCrearCuenta">
+								<button className="buttomRestablecerContraseña">Generar Token</button>
+							</div>
+                    	</div>
+					)}
+                    {checkToken === !false && (
+						<div>
+							<div className="boxEmail">
+								<Label>Confirmar Token <LabelReq> *</LabelReq></Label>
+								<Inputc
+									type="text"
+									placeholder=""
+								    name="token"
+									value={token}
+									onChange={onChangeToken}
+									required 
+                                />
+								<RestriccionPass>
+									Se ha enviado un token de verificación a tu correo
+								</RestriccionPass>
+							</div>
+							<div className="CrearPaciente">
+								<button className="buttomCrearCuenta" onClick={handleClickConfirmarToken} >Confirmar Token</button>
+							</div>
+						</div>
+					)}
                 </div>
-            </FormularioUnic>
+            </form>
+            <ModalTest title={title} show={showModal} handleClose={handleCloseToken} msj={msj}/>
         </main>
     );
 }

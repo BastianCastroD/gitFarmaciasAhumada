@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 export const EmpresaService = async (data) => {
-	console.log(data);
+
 	const config = {
 		method: 'put',
 		url: 'http://localhost:8181/cxf/actualizarEmpresa/services/actualizarEmpresa',
@@ -20,7 +20,7 @@ export const EmpresaService = async (data) => {
 	};
 	const response = axios(config)
 		.then(({ data: outActualizar }) => {
-			console.log(outActualizar);
+
 			return outActualizar;
 		})
 		.catch((error) => {
@@ -29,19 +29,19 @@ export const EmpresaService = async (data) => {
 
 	return response;
 }
-export const ConvenioService = async (user,codigo) => {
+export const ConvenioService = async (user, codigo) => {
 
 	const config = {
 		method: 'put',
 		url: 'http://localhost:8181/cxf/convenios/services/actualizarConvenio',
-		headers: { 
-		  'user': user, 
-		  'codigo': codigo
+		headers: {
+			'user': user,
+			'codigo': codigo
 		}
-	  };
+	};
 	const response = axios(config)
 		.then(({ data: outActualizar }) => {
-			console.log(outActualizar);
+
 			return outActualizar;
 		})
 		.catch((error) => {

@@ -65,9 +65,9 @@ const GrupoInput = styled.div`
 
 //Input passwd validacion
 const Inputp = styled.input.attrs(props => ({
-    maxLength: props.max ,
+    maxLength: props.max,
     minLength: props.min
-    }))`
+}))`
     text-size: 12px
     font-family: Arial, Helvetica, sans-serif
     letter-spacing: 0.8px
@@ -155,7 +155,25 @@ const InputH = styled.input`
     padding 0 40px 0 10px;
     border: 0.5px solid rgb(194, 194, 194);
 `;
+const Inputc = styled.input`
+    text-size: 12px
+    font-family: Arial, Helvetica, sans-serif
+    letter-spacing: 0.8px
+    color: red;
+    width: 70%;
+    background: #FFFFFF;
+    border-radius: 3px;
+    height: 45px;
+    line-height: 45px;
+    padding 0 15px 0 15px;
+    border: 0.5px solid rgb(194, 194, 194);
 
+    &:focus {
+        border: 2px solid ${colores.borde};
+        outline: none;
+        box-shadow: 3px 0px 15px rgba(163, 163, 163, 0.4);
+    }
+`;
 //Mensaje de exito - formulario completado
 const MensajeExito = styled.p`
     font-family: Arial, Helvetica, sans-serif;
@@ -215,6 +233,7 @@ export {
     InputB,
     Inputp,
     Inputu,
+    Inputc,
     LabelReq,
     FormularioUnic,
     LeyendaError,

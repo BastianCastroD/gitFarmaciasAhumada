@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 
 import MaterialReactTable, {
 
@@ -7,7 +7,6 @@ import MaterialReactTable, {
 import { Box, Button, IconButton, Tooltip } from '@mui/material';
 
 import Delete from '@mui/icons-material/Delete';
-import Edit from '@mui/icons-material/Edit';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { ExportToCsv } from 'export-to-csv-fix-source-map';
 import { MRT_Localization_ES } from 'material-react-table/locales/es';
@@ -57,8 +56,6 @@ const DataTableDeleteAndExport = props => {
     const resp = await EliminarUsuario(values.original.correo)
     tableData.splice(values.index, 1);
     setTableData([...tableData]);
-    var codigoRespuesta = resp['eliminar'][0]['codigoRespuesta'];
-    var detalleRespuesta = resp['eliminar'][0]['detalleRespuesta'];
     setShowModalConfirmar(false);
     console.log(resp)
   }
@@ -76,7 +73,6 @@ const DataTableDeleteAndExport = props => {
         handleClose={handleCloseConfirmar}
         handleYes={handleConfirmar} />
       <MaterialReactTable
-
         columns={props.columns}
         data={tableData}
         positionToolbarAlertBanner="bottom"

@@ -7,16 +7,16 @@ const data = JSON.stringify({
 const config = {
   method: 'get',
   url: 'http://localhost:8181/cxf/usuarios/services/validatepass',
-  headers: { 
+  headers: {
     'Content-Type': 'application/json'
   },
-  data : data
+  data: data
 };
 
 axios(config)
-.then( ({data})=> {
-  console.log(JSON.stringify(data));
-})
-.catch( (error)=> {
-  console.log(error);
-});
+  .then(({ data }) => {
+    JSON.stringify(data);
+  })
+  .catch((error) => {
+    console.log(error);
+  });

@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 export const LoginService = async (data) => {
-	console.log(data);
+
 	// const data = JSON.stringify({
 	// 	//"user":"user@email.com",
 	// 	//"password":"password"

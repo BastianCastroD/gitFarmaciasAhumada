@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Label, GrupoInput, InputH } from "./Formularios";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { HomeService } from "../api/HomeService";
 import "../styles/Home.css";
 //import { LoginService } from "../api/LoginService";
@@ -14,16 +14,26 @@ const FormHome = () => {
 		email: '',
 		celular: '',
 	})
-	const location = useLocation();
 
+	const [registerData, setRegisterData] = useState({
+		email: '',
+	});
+
+	const navigate = useNavigate();
+	const location = useLocation();
 	const emailparam = location.pathname.split("/")
-	
+
+	const handleClick = () => {
+		//Redireccionar al home usuario cliente recien creado
+		navigate(`/ModificarPass/${initialState.email}`);
+	}
 
 	const home = async (email) => {
 		const response = await HomeService(email)
 		const datosUsuarios = JSON.parse(response)
 		
 		const { rut, nombre, apellido, apellido2, correo, celular } = datosUsuarios.usuario[0];
+
 		setInitialState({
 			rut: rut,
 			nombre: nombre,
@@ -123,9 +133,11 @@ const FormHome = () => {
 									readOnly
 								/>
 							</GrupoInput>
-							<div>
-								<NavLink to="/ModificarPass" className="navlink" >Modificar Contraseña</NavLink>
-							</div>
+							<div id="accionRegistro">
+              					<div id="botonModificar">
+								  <button onClick={handleClick} >Modificar Contraseña</button>
+              					</div>
+            				</div>
 						</GrupoInput>{" "}
 					</div>
 				</div>
@@ -135,3 +147,6 @@ const FormHome = () => {
 };
 
 export default FormHome;
+
+
+// <NavLink to="/ModificarPass/" className="navlink" >Modificar Contraseña</NavLink>

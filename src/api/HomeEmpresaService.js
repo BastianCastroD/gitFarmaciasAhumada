@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 export const HomeServiceEmpresa = async (data) => {
-	console.log(data);
+
 	// const data = JSON.stringify({
 	// 	//"user":"user@email.com",
 	// 	//"password":"password"
@@ -18,7 +18,7 @@ export const HomeServiceEmpresa = async (data) => {
 	};
 	const response = axios(config)
 		.then(({ data: usuarioEmpresa }) => {
-			console.log(usuarioEmpresa);
+
 			return usuarioEmpresa;
 		})
 		.catch((error) => {

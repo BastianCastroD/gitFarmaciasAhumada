@@ -1,7 +1,7 @@
 import React, { useState, Component, useEffect } from "react";
 import "../styles/FormClienteEmpresa.css";
 import styles from "../styles/FormPacienteCliente.css";
-import { EmpresaService , ConvenioService} from "../api/EmpresaService";
+import { EmpresaService, ConvenioService } from "../api/EmpresaService";
 import { LIstaEmpresasService, } from "../api/LIstaEmpresasService";
 import {
 	Label,
@@ -66,7 +66,7 @@ const FormClienteEmpresa = () => {
 		var aux;
 		//Validacion de campos de formulario solo letras
 		if (event.target.name === "nombre" || event.target.name === "apellido" || event.target.name === "apellido2" || event.target.name === "kamConvenios" || event.target.name === "cargo") {
-			aux = event.target.value.replace(/[^A-Za-z-Ñ-ñ]+/g, '');
+			aux = event.target.value.replace(/ [^A-Za-z-Ñ-ñ]+/g, '');
 			updateStateOnchange(event, aux);
 		}
 		//Validacion rut
@@ -107,7 +107,7 @@ const FormClienteEmpresa = () => {
 				setShowModal(true)
 				setTitle("Creación de usuario")
 				setMsj("Cliente Empresa creado de manera exitosa.")
-				const respConvenio = await ConvenioService(registerData.user,selectedOptions.toString());
+				const respConvenio = await ConvenioService(registerData.user, selectedOptions.toString());
 				console.log(respConvenio);
 				handleClear();
 			}
@@ -335,7 +335,7 @@ const FormClienteEmpresa = () => {
 									</GrupoInput>
 									<GrupoInput>
 										<Label>Empresa (s) <LabelReq> *</LabelReq></Label>
-										<Select options={options}  value={options.filter(obj => selectedOptions.includes(obj.value))}
+										<Select options={options} value={options.filter(obj => selectedOptions.includes(obj.value))}
 											onChange={onChangeSelect} isMulti required />
 									</GrupoInput>
 									{/* <select name="cars" id="cars">
@@ -347,7 +347,7 @@ const FormClienteEmpresa = () => {
 					</div>
 				</div>
 			</form>
-			<ModalTest title={title} show={showModal} handleClose={handleClose} msj={msj}/>
+			<ModalTest title={title} show={showModal} handleClose={handleClose} msj={msj} />
 		</main>
 	);
 }
