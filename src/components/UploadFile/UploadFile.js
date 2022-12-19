@@ -19,7 +19,7 @@ class UploadFile extends Component {
     // On file select (from the pop up)
     onFileChange = event => {
         // Update the state
-        console.log("a")
+
         const files = event.target.files[0];
         const file = files;
         const reader = new FileReader();
