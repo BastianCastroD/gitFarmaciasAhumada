@@ -1,23 +1,25 @@
-import axios from 'axios';
+
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import * as XLSX from 'xlsx/xlsx.mjs';
+import TextareaAutosize from '@mui/base/TextareaAutosize';
+import { UploadPolizas } from "../../api/UploadExcelPolizas";
 
 class UploadFile extends Component {
 
     state = {
-
         // Initially, no file is selected
-        selectedFile: null
+        selectedFile: null,
+        msj: " "
     };
 
     // On file select (from the pop up)
     onFileChange = event => {
-
         // Update the state
+        console.log("a")
         const files = event.target.files[0];
         const file = files;
         const reader = new FileReader();
@@ -33,39 +35,47 @@ class UploadFile extends Component {
     };
 
     // On file upload (click the upload button)
-    onFileUpload = () => {
-        // Create an object of formData
-        const formData = new FormData();
-        const blob = new Blob([this.state.selectedFile], { type: 'text/csv' });
-        // Update the formData object
-        formData.append(
-            "csv",
-            blob,
-            "Poliza.csv"
-        );
-        // Details of the uploaded file
+    onFileUpload = async (e) => {
+        e.preventDefault();
+        if (this.state.selectedFile !== null) {
+            const blob = new Blob([this.state.selectedFile], { type: 'text/csv' });
+            var resp = await UploadPolizas(blob);
+            this.setState({ msj: resp.response1[0].detalleRespuest });;
+            console.log(resp);
 
-        // Request made to the backend api
-        // Send formData object
-        axios.post("http://localhost:8181/cxf/carga/services/csv", formData);
+        }
+        console.log(this.state.selectedFile);
 
+
+    };
+    handleClick = event => {
+        const { target = {} } = event || {};
+        target.value = "";
     };
 
     render() {
         return (
             <>
-                <Form>
+                <Form onSubmit={this.onFileUpload}>
                     <Row>
                         <Col xs={7}>
-                            <Form.Control onChange={this.onFileChange} type="file" />
+                            <Form.Control required onChange={this.onFileChange} onClick={this.handleClick} type="file" />
                         </Col>
                         <Col>
-                            <Button onClick={this.onFileUpload} style={{ marginTop: 5 }}>
+                            <Button type="submit" style={{ marginTop: 5 }}>
                                 Subir archivo
                             </Button>
                         </Col>
                     </Row>
+
                 </Form>
+                <TextareaAutosize
+                    maxRows={4}
+                    disabled
+                    aria-label="maximum height"
+                    value={this.state.msj}
+                    style={{ width: "100%", height: 300, overflow: 'auto', marginTop: 20 }}
+                />
             </>
         );
     }

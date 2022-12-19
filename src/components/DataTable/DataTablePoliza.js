@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import MaterialReactTable from 'material-react-table';
 import Button from 'react-bootstrap/Button';
 import ModalConfirmar from "../ModalConfirmar";
-import { ExportToCsv } from 'export-to-csv-fix-source-map';
+import ModalTest from "../ModalTest";
+
+
 import { MRT_Localization_ES } from 'material-react-table/locales/es';
 import "../../styles/PolizasGrupos.css";
 import { PolizaServiceUpdate } from "../../api/PolizaService";
@@ -14,9 +16,14 @@ const DataTablePoliza = props => {
   //Modal Variables
   const [title, setTitle] = useState();
   const [msj, setMsj] = useState();
-  const [showModalConfirmar, setShowModalConfirmar] = useState(false);
-  //Modal Upload Variables
+  //Modal Alert
+  const [titleAlert, setTitleAlert] = useState();
+  const [msjAlert, setMsjAlert] = useState();
+  const [showModalAlert, setShowModalAlert] = useState(false);
+  //Modal Upload File
   const [showModalUpload, setShowModalUpload] = useState(false);
+  const [showModalConfirmar, setShowModalConfirmar] = useState(false);
+
   //Edit table variables
   const [values, setValues] = useState();
   const [row, setRow] = useState();
@@ -28,20 +35,50 @@ const DataTablePoliza = props => {
   const handleCloseUpload = () => {
     setShowModalUpload(false);
   }
+
+  const handleCloseAlert = () => {
+    setShowModalAlert(false);
+  }
   //Confirma la accion del modal y ejecuta update de la informacion de la tabla 
   const handleConfirmar = async () => {
-    const resp = await PolizaServiceUpdate(
-      values.grupoAhumada,
-      values.nombrePoliza,
-      values.codigoPoliza,
-      values.rutEmpresa,
-      values.terminoBeneficio,
-      values.polizaAceptaBioequivalente
-    )
-    console.log(resp);
-    setShowModalConfirmar(false);
-    tableData[row.index] = values;
-    setTableData([...tableData]);
+
+    if ((values.grupoAhumada === "" || values.grupoAhumada === null) ||
+      (values.nombrePoliza === "" || values.nombrePoliza === null) ||
+      (values.codigoPoliza === "" || values.codigoPoliza === null) ||
+      (values.rutEmpresa === "" || values.rutEmpresa === null) ||
+      (values.terminoBeneficio === "" || values.terminoBeneficio === null) ||
+      (values.polizaAceptaBioequivalente === "" || values.polizaAceptaBioequivalente === null)) {
+      setTitleAlert("Error")
+      setMsjAlert("Todos los campos deben contener datos")
+      setShowModalAlert(true);
+      setShowModalConfirmar(false);
+
+    } else {
+      const resp = await PolizaServiceUpdate(
+        values.grupoAhumada,
+        values.nombrePoliza,
+        values.codigoPoliza,
+        values.rutEmpresa,
+        values.terminoBeneficio,
+        values.polizaAceptaBioequivalente
+      )
+      setShowModalConfirmar(false);
+      console.log(resp);
+
+      if (resp.response1[0].codigoRespuesta === 0) {
+        setTitleAlert("Exito")
+        setMsjAlert(resp.response1[0].detalleRespuest)
+        tableData[row.index] = values;
+        setTableData([...tableData]);
+        setShowModalAlert(true);
+      } else {
+        setTitleAlert("Error")
+        setMsjAlert("Ha ocurrido un error en la actualizacion de los datos")
+        setShowModalAlert(true);
+      };
+
+    }
+
 
   }
   const columns = [
@@ -53,6 +90,7 @@ const DataTablePoliza = props => {
     {
       accessorKey: 'estadoPolizaAhumada',
       header: 'Estado',
+      enableEditing: false,
       size: 100,
     },
     {
@@ -164,11 +202,6 @@ const DataTablePoliza = props => {
   };
 
 
-
-
-
-
-
   return (
     <>
       <div className="boxTabla">
@@ -209,6 +242,8 @@ const DataTablePoliza = props => {
         handleClose={handleCloseConfirmar}
         handleYes={handleConfirmar}
       />
+      <ModalTest title={titleAlert} show={showModalAlert} handleClose={handleCloseAlert} msj={msjAlert} />
+
       <ModalUploadFile
         title={"Cargar datos masivos"}
         msj={"Cargue el archivo .csv con el cual desea actualizar los registros"}

@@ -2,7 +2,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import UploadFile from "../UploadFile/UploadFile";
-import TextareaAutosize from '@mui/base/TextareaAutosize';
+
 
 
 
@@ -24,16 +24,8 @@ const ModalUploadFile = ({ show, handleClose, msj, title }) => {
 
                 </UploadFile>
 
-                <TextareaAutosize
-                    maxRows={4}
-                    disabled
-                    aria-label="maximum height"
-                    defaultValue=""
-                    style={{ width: "100%", height: 300, overflow: 'auto', marginTop: 20 }}
-                /></Modal.Body>
+            </Modal.Body>
             <Modal.Footer>
-
-
                 <Button variant="primary" onClick={handleClose}>
                     Aceptar
                 </Button>
