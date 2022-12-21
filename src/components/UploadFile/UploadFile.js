@@ -19,7 +19,6 @@ class UploadFile extends Component {
     // On file select (from the pop up)
     onFileChange = event => {
         // Update the state
-
         const files = event.target.files[0];
         const file = files;
         const reader = new FileReader();
@@ -27,7 +26,22 @@ class UploadFile extends Component {
             const wb = XLSX.read(event.target.result);
             const sheets = wb.SheetNames;
             if (sheets.length) {
-                const rows = XLSX.utils.sheet_to_csv(wb.Sheets[sheets[0]]);
+                const jsonRows = XLSX.utils.sheet_to_json(wb.Sheets[sheets[0]], { raw: false });
+                for (let i = 0; i < jsonRows.length; i++) {
+
+                    if (jsonRows[i].terminoBeneficio.includes("/")) {
+                        var dateString = jsonRows[i].terminoBeneficio.replaceAll('-', '/')
+                        var dateObject = new Date(dateString);
+                        console.log(dateObject)
+                        console.log("///////////////////////////////////////")
+                        var day = dateObject.getDate();
+                        var month = dateObject.getMonth();
+                        var year = dateObject.getFullYear();
+                        dateObject = `${day}-${month}-${year}`;
+                        jsonRows[i].terminoBeneficio = dateObject;
+                    }
+                }
+                const rows = XLSX.utils.sheet_to_csv(XLSX.utils.json_to_sheet(jsonRows));
                 this.setState({ selectedFile: rows });;
             }
         }
@@ -42,11 +56,7 @@ class UploadFile extends Component {
             var resp = await UploadPolizas(blob);
             this.setState({ msj: resp.response1[0].detalleRespuest });;
             console.log(resp);
-
         }
-        console.log(this.state.selectedFile);
-
-
     };
     handleClick = event => {
         const { target = {} } = event || {};
