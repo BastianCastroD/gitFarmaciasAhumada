@@ -32,8 +32,6 @@ class UploadFile extends Component {
                     if (jsonRows[i].terminoBeneficio.includes("/")) {
                         var dateString = jsonRows[i].terminoBeneficio.replaceAll('-', '/')
                         var dateObject = new Date(dateString);
-                        console.log(dateObject)
-                        console.log("///////////////////////////////////////")
                         var day = dateObject.getDate();
                         var month = dateObject.getMonth();
                         var year = dateObject.getFullYear();
@@ -55,7 +53,6 @@ class UploadFile extends Component {
             const blob = new Blob([this.state.selectedFile], { type: 'text/csv' });
             var resp = await UploadPolizas(blob);
             this.setState({ msj: resp.response1[0].detalleRespuest });;
-            console.log(resp);
         }
     };
     handleClick = event => {
