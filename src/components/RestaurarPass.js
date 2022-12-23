@@ -10,20 +10,20 @@ const initialForm = {
     passwd2: '',
 };
 
-const FormRestaurarPass = () => {
+const FormRestaurarPass = (user) => {
 
     const navigate = useNavigate();
     const [title, setTitle] = useState();
     const [msj, setMsj] = useState();
     const [showModal, setShowModal] = useState(false);
-    const [user, setUser] = useState(false);
+    const [usuario, setUsuario] = useState(JSON.parse(user.user))
     const [isValid, setIsValid] = useState(false);
 
     const handleClose = () => {
         setShowModal(false);
         if (isValid) {
             //Redireccionar al home usuario cliente recien creado
-            navigate(`/Home/${(emailparam[2])}`);
+            navigate(`/`);
             handleClear();
         }
     }
@@ -35,19 +35,16 @@ const FormRestaurarPass = () => {
 
     const { passwd, passwd2 } = registerData;
 
-
     const location = useLocation();
     const emailparam = location.pathname.split("/")
-    useEffect(() => {
-        setUser(emailparam[2])
-    }, [])
 
     //Validaciones
     const onSubmit = async (e) => {
         e.preventDefault();
         var isPassValid = contraseñaValidar();
         if (isPassValid) {
-            const respActualizar = await ActualizarPass(emailparam[2], registerData.passwd);
+            console.log(usuario);
+            const respActualizar = await ActualizarPass(usuario, registerData.passwd);
             console.log(respActualizar);
             //var mensaje = respActualizar['respuesta'][0]['detalleResultado'];
             if (respActualizar['respuesta'].length === 1) {

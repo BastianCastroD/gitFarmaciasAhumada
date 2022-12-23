@@ -15,23 +15,39 @@ import HomeEmpresa from "./screens/HomeEmpresa";
 import PolizasGrupos from "./screens/PolizasGrupos";
 import ModificarPass from "./screens/ModificarPass";
 import RestaurarPass from "./screens/RestaurarPass";
+import PrivateRoutes from './utils/PrivateRoutes';
+import PacienteRoutes from './utils/PacienteRoutes';
+import EmpresaRoutes from './utils/EmpresaRoutes';
 
 export default function App() {
+  const user = localStorage.getItem("user");
   return (
     <BrowserRouter>
-      <Navbar />
+      <Navbar user={user} />
       <Routes>
+
         <Route exact path="/" element={<Login />} />
-        <Route exact path="/Home/:email" element={<Home />} />
-        <Route exact path="/HomeEmpresa/:email" element={<HomeEmpresa />} />
         <Route exact path="/OlvidasteContraseña" element={<OlvidasteContraseña />} />
         <Route exact path="/NuevoPacienteCliente" element={<NuevoPacienteCliente />} />
-        <Route exact path="/AdministrarUsuarios" element={<AdministrarUsuarios />} />
-        <Route exact path="/NuevoClienteEmpresa" element={<NuevoClienteEmpresa />} />
-        <Route exact path="/CambiarPass" element={<CambiarPass />} />
-        <Route exact path="/PolizasGrupos" element={<PolizasGrupos />} />
-        <Route exact path="/RestaurarPass/:email" element={<RestaurarPass />} />
-        <Route exact path="/ModificarPass/:email" element={<ModificarPass />} />
+
+        <Route element={<PacienteRoutes />}>
+
+        </Route>
+
+        <Route element={<EmpresaRoutes />}>
+          <Route exact path="/HomeEmpresa/:email" element={<HomeEmpresa />} />
+          <Route exact path="/AdministrarUsuarios" element={<AdministrarUsuarios />} />
+          <Route exact path="/NuevoClienteEmpresa" element={<NuevoClienteEmpresa />} />
+          <Route exact path="/PolizasGrupos" element={<PolizasGrupos />} />
+        </Route>
+
+        <Route element={<PrivateRoutes />}>
+          <Route exact path="/RestaurarPass" element={<RestaurarPass />} />
+          <Route exact path="/ModificarPass" element={<ModificarPass />} />
+          <Route exact path="/Home" element={<Home />} />
+        </Route>
+
+
       </Routes>
     </BrowserRouter>
   );

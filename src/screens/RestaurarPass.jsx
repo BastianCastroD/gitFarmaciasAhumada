@@ -3,11 +3,12 @@ import React from "react";
 import FormRestaurarPass from "../components/RestaurarPass";
 
 const RestaurarPass = () => {
-    return ( 
+    var user = localStorage.getItem("user");
+    return (
         <div>
-            <FormRestaurarPass />
+            <FormRestaurarPass user={user} />
         </div>
     );
 }
- 
+
 export default RestaurarPass;
