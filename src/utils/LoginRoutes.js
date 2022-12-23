@@ -1,10 +1,11 @@
 import { Outlet, Navigate, } from 'react-router-dom'
 
-const PrivateRoutes = () => {
+const LoginRoutes = () => {
     const user = localStorage.getItem("user");
+
     return (
-        (user === null) ? <Navigate to="/" /> : <Outlet />
+        (user === null) ? <Outlet /> : <Navigate to="/Home" />
     )
 }
 
-export default PrivateRoutes
+export default LoginRoutes

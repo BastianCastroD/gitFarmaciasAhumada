@@ -63,9 +63,9 @@ const FormHome = (user) => {
 		<main>
 			<div className="row align-items-center">
 				<div>
-					<div class="container text-center">
-						<div class="row">
-							<div class="col-6">
+					<div className="container text-center">
+						<div className="row">
+							<div className="col-6">
 								<div className="contenedorTitulo">
 									<label className="titulo">Informacion Personal</label>
 								</div>

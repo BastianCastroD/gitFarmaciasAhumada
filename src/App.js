@@ -18,6 +18,7 @@ import RestaurarPass from "./screens/RestaurarPass";
 import PrivateRoutes from './utils/PrivateRoutes';
 import PacienteRoutes from './utils/PacienteRoutes';
 import EmpresaRoutes from './utils/EmpresaRoutes';
+import LoginRoutes from './utils/LoginRoutes';
 
 export default function App() {
   const user = localStorage.getItem("user");
@@ -25,10 +26,13 @@ export default function App() {
     <BrowserRouter>
       <Navbar user={user} />
       <Routes>
+        <Route element={<LoginRoutes />}>
+          <Route exact path="/" element={<Login />} />
+        </Route>
 
-        <Route exact path="/" element={<Login />} />
         <Route exact path="/OlvidasteContraseña" element={<OlvidasteContraseña />} />
         <Route exact path="/NuevoPacienteCliente" element={<NuevoPacienteCliente />} />
+
 
         <Route element={<PacienteRoutes />}>
 
