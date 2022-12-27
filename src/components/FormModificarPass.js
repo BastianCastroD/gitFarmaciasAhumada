@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Label, LabelReq, RestriccionPass, Inputc } from "./Formularios";
+import { Label, LabelReq, RestriccionPass, Inputc, ContenedorTitulo, Titulo } from "./Formularios";
 import ModalTest from "./ModalTest";
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ActualizarPass } from "../api/ActualizarPass";
@@ -139,9 +139,9 @@ const FormModificarPass = () => {
         <main>
             <form onSubmit={onSubmit}>
                 <div className="boxCentral">
-                    <div className="contenedorTitulo">
-                        <label className="titulo">Modificar Contraseña</label>
-                    </div>
+                    <ContenedorTitulo>
+						<Titulo>Modificar Contraseña</Titulo>
+					</ContenedorTitulo>
                     <div className="leyenda">
                         <label>
                             Para poder modificar su contraseña ingrese la clave anterior

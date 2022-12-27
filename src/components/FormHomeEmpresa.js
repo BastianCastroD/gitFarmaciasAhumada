@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Label, GrupoInput, InputH } from "./Formularios";
+import { Label, GrupoInput, InputH, ContenedorTitulo, Titulo } from "./Formularios";
 import { useLocation } from "react-router-dom";
 import { HomeServiceEmpresa } from "../api/HomeEmpresaService";
 //import { LoginService } from "../api/LoginService";
@@ -42,9 +42,9 @@ const FormHome = () => {
 					<div class="container text-center">
 						<div class="row">
 							<div class="col-6">
-								<div className="contenedorTitulo">
-									<label className="titulo">Informacion Personal</label>
-								</div>
+								<ContenedorTitulo>
+									<Titulo>Informacion Personal</Titulo>
+								</ContenedorTitulo>
 								<GrupoInput>
 									<Label>RUT</Label>
 									<InputH
@@ -83,9 +83,9 @@ const FormHome = () => {
 								</GrupoInput>
 							</div>
 							<div class="col-6">
-								<div className="contenedorTitulo">
-									<label className="titulo">Informacion Cuenta</label>
-								</div>
+								<ContenedorTitulo>
+									<Titulo>Informacion de Cuenta</Titulo>
+								</ContenedorTitulo>
 								<GrupoInput>
 									<Label>Correo Electronico</Label>
 									<InputH
@@ -99,9 +99,9 @@ const FormHome = () => {
 						</div>
 						<div className="row">
 							<div className="col-6">
-								<div className="contenedorTitulo">
-									<label className="titulo">Informacion KAM</label>
-								</div>
+								<ContenedorTitulo>
+									<Titulo>Informacion KAM</Titulo>
+								</ContenedorTitulo>
 								<GrupoInput>
 									<Label>Nombre Kam </Label>
 									<InputH
@@ -122,9 +122,9 @@ const FormHome = () => {
 								</GrupoInput>
 							</div>
 							<div class="col-6">
-								<div className="contenedorTitulo">
-									<label className="titulo">Informacion Empresa</label>
-								</div>
+								<ContenedorTitulo>
+									<Titulo>Informacion Empresa</Titulo>
+								</ContenedorTitulo>
 								<GrupoInput>
 									<Label>Cargo </Label>
 									<InputH

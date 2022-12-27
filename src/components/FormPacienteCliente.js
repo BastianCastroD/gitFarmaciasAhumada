@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { PacienteService, GenerarToken, ValidarToken, Validate } from "../api/PacienteService";
 import { useNavigate } from 'react-router-dom';
-import { Label, LabelReq, Inputs, Inputp, GrupoInput, RestriccionPass, } from "../components/Formularios";
+import { Label, LabelReq, Inputs, Inputp, GrupoInput, RestriccionPass, DivTitulos, Titulo, } from "../components/Formularios";
 import { NavLink } from "react-router-dom";
 import ModalTest from './ModalTest';
+import "../styles/FormPacienteCliente.css";
 
 const initialForm = {
 	rut: '',
@@ -58,7 +59,7 @@ const FormPacienteCliente = () => {
 		//Validacion de campos de formulario solo letras
 		if (event.target.name === "nombre" || event.target.name === "apellido" || event.target.name === "apellido2") {
 			aux = event.target.value
-			aux = aux.replace(/[^A-Za-z-Ñ-ñ]+/g, '');
+			aux = aux.replace(/ [^A-Za-z-Ñ-ñ]+/g, '');
 			updateStateOnchange(event, aux);
 		}
 		//Validacion de campos de formulario solo numeros
@@ -200,9 +201,9 @@ const FormPacienteCliente = () => {
 				<div className="container text-center">
 					<div className="row">
 						<div className="col">
-							<div className="contenedorTitulo">
-								<label className="titulo">Informacion Personal</label>
-							</div>
+							<DivTitulos>
+								<Titulo>Informacion Personal</Titulo>
+							</DivTitulos>
 							<GrupoInput>
 								<Label>RUT <LabelReq> *</LabelReq></Label>
 								<Inputp
@@ -277,9 +278,9 @@ const FormPacienteCliente = () => {
 							</GrupoInput>
 						</div>
 						<div className="col">
-							<div className="contenedorTitulo">
-								<label className="titulo">Informacion de la cuenta</label>
-							</div>
+							<DivTitulos>
+								<Titulo>Informacion de la cuenta</Titulo>
+							</DivTitulos>
 							<GrupoInput>
 								<Label>Correo Electronico <LabelReq> *</LabelReq></Label>
 								<Inputs

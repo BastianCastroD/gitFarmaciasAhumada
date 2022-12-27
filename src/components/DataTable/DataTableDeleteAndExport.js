@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from "react";
 
 import MaterialReactTable, {
-
   MRT_FullScreenToggleButton, MRT_ToggleGlobalFilterButton, MRT_ToggleFiltersButton
 } from 'material-react-table';
 import { Box, Button, IconButton, Tooltip } from '@mui/material';
@@ -45,7 +44,7 @@ const DataTableDeleteAndExport = props => {
     (row) => {
       setValues(row);
       setTitle("¿Desea continuar?")
-      setMsj("Seleccione confirmar si desea elimnar el campo")
+      setMsj("Seleccione confirmar si desea eliminar el campo")
       setShowModalConfirmar(true)
     },
     [tableData],

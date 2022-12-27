@@ -10,11 +10,14 @@ import OlvidasteContraseña from "./screens/OlvidasteContraseña";
 import NuevoPacienteCliente from "./screens/NuevoPacienteCliente";
 import AdministrarUsuarios from "./screens/AdministrarUsuarios";
 import NuevoClienteEmpresa from "./screens/NuevoClienteEmpresa";
-import CambiarPass from "./screens/CambiarPass";
 import HomeEmpresa from "./screens/HomeEmpresa";
 import PolizasGrupos from "./screens/PolizasGrupos";
 import ModificarPass from "./screens/ModificarPass";
 import RestaurarPass from "./screens/RestaurarPass";
+import Beneficiarios from "./screens/Beneficiarios";
+import CartolaVentas from "./screens/CartolaVentas";
+import Medicos from "./screens/Medicos";
+import ReporteAuditoria from "./screens/ReporteAuditoria";
 
 export default function App() {
   return (
@@ -28,10 +31,13 @@ export default function App() {
         <Route exact path="/NuevoPacienteCliente" element={<NuevoPacienteCliente />} />
         <Route exact path="/AdministrarUsuarios" element={<AdministrarUsuarios />} />
         <Route exact path="/NuevoClienteEmpresa" element={<NuevoClienteEmpresa />} />
-        <Route exact path="/CambiarPass" element={<CambiarPass />} />
         <Route exact path="/PolizasGrupos" element={<PolizasGrupos />} />
         <Route exact path="/RestaurarPass/:email" element={<RestaurarPass />} />
         <Route exact path="/ModificarPass/:email" element={<ModificarPass />} />
+        <Route exact path="/Beneficiarios" element={<Beneficiarios />} />
+        <Route exact path="/CartolaVentas" element={<CartolaVentas />} />
+        <Route exact path="/Medicos" element={<Medicos />} />
+        <Route exact path="/ReporteAuditoria" element={<ReporteAuditoria />} />
       </Routes>
     </BrowserRouter>
   );

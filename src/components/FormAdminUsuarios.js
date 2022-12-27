@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ContenedorTitulo } from "./Formularios";
+import { ContenedorTitulo, Titulo } from "./Formularios";
 import { EliminarUsuario } from "../api/EliminarUsuario";
 
 import DataTableDeleteAndExport from "./DataTable/DataTableDeleteAndExport";
@@ -98,10 +98,10 @@ const FormAdminUsuarios = () => {
                 <div className="row">
                     <div className="col">
                         <ContenedorTitulo>
-                            <label className="titulo">Agregar un nuevo Cliente Empresa</label>
+                            <Titulo>Administracion de Usuarios</Titulo>
                         </ContenedorTitulo>
                         <div id="notaLogin">
-                            En esta seccion podras agregar un nuevo usuario al sistema.
+                            En esta sección podras agregar un nuevo usuario al sistema.
                         </div>
 
                         <div className="boxTabla">

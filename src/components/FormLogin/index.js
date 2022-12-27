@@ -11,6 +11,8 @@ import {
 	Inputs,
 	GrupoInput,
 	Inputp,
+	Titulo,
+	DivTitulos
 } from "../Formularios";
 
 import ModalTest from '../ModalTest';
@@ -93,7 +95,6 @@ const FormLogin = () => {
 			setShowModal(true)
 			setTitle("Error al iniciar sesión")
 			setMsj("La contraseña ingresada se encuentra expirada.")
-			navigate("/CambiarPass")
 		}
 	};
 
@@ -101,9 +102,9 @@ const FormLogin = () => {
 		<div className="row align-items-center">
 			<div className="col-md-8">
 				<div>
-					<div className="contenedorTitulo">
-						<label className="titulo">Usuarios Registrados</label>
-					</div>
+					<DivTitulos>
+						<Titulo>Usuarios Registrados</Titulo>
+					</DivTitulos>
 					<div id="notaLogin">
 						Si tiene una cuenta, inicie sesión con su dirección de correo
 						electrónico.

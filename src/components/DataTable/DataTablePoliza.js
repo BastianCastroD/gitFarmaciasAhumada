@@ -84,7 +84,7 @@ const DataTablePoliza = props => {
   const columns = [
     {
       accessorKey: 'codigoPoliza',
-      header: 'Codigo',
+      header: 'Poliza',
       size: 20,
     },
     {
@@ -204,7 +204,7 @@ const DataTablePoliza = props => {
 
   return (
     <>
-      <div className="boxTabla">
+      <div className="boxTable">
         <MaterialReactTable
           columns={columns}
           data={tableData}

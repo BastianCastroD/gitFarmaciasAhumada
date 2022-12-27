@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../styles/PolizasGrupos.css";
-import { ContenedorTitulo } from "./Formularios";
+import { ContenedorTitulo, Titulo } from "./Formularios";
 import { PolizaService } from "../api/PolizaService";
 import DataTableEditAndExport from "./DataTable/DataTablePoliza";
 import Col from 'react-bootstrap/Col';
@@ -33,10 +33,9 @@ const FormPolizas = () => {
     return (
         <main>
             <div>
-
                 <ContenedorTitulo>
-                    <label className="titulo">Visualización Póliza y Grupos</label>
-                </ContenedorTitulo>
+					<Titulo>Visualización de Pólizas y Grupos</Titulo>
+				</ContenedorTitulo>
                 <div id="notaLogin">
                     En esta seccion podras editar, descargar y cargar masivamente.
                 </div>
@@ -63,7 +62,6 @@ const FormPolizas = () => {
                         null
                         : <DataTableEditAndExport
                             data={dataTable}
-                            export={true}
                         />
                 }
 

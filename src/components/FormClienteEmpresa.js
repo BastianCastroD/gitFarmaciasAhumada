@@ -8,7 +8,9 @@ import {
 	Inputs,
 	GrupoInput,
 	RestriccionPass,
-	Inputp
+	Inputp,
+	ContenedorTitulo,
+	Titulo
 } from "../components/Formularios";
 import ModalTest from './ModalTest';
 import BaseSelect from "react-select";
@@ -182,9 +184,9 @@ const FormClienteEmpresa = () => {
 						<div className="container text-center">
 							<div className="row">
 								<div className="col-6">
-									<div className="contenedorTitulo">
-										<label className="titulo">Informacion Personal</label>
-									</div>
+									<ContenedorTitulo>
+										<Titulo>Informacion Personal</Titulo>
+									</ContenedorTitulo>
 									<GrupoInput>
 										<Label>RUT <LabelReq> *</LabelReq></Label>
 										<Inputp
@@ -234,9 +236,9 @@ const FormClienteEmpresa = () => {
 									</GrupoInput>
 								</div>
 								<div className="col-6">
-									<div className="contenedorTitulo">
-										<label className="titulo">Informacion Cuenta</label>
-									</div>
+									<ContenedorTitulo>
+										<Titulo>Información de Cuenta</Titulo>
+									</ContenedorTitulo>
 									<GrupoInput>
 										<Label>Correo Electronico <LabelReq> *</LabelReq></Label>
 										<Inputs
@@ -283,9 +285,9 @@ const FormClienteEmpresa = () => {
 							</div>
 							<div className="row">
 								<div className="col-6">
-									<div className="contenedorTitulo">
-										<label className="titulo">Informacion KAM</label>
-									</div>
+									<ContenedorTitulo>
+										<Titulo>Informacion KAM</Titulo>
+									</ContenedorTitulo>
 									<GrupoInput>
 										<Label>Nombre Kam <LabelReq> *</LabelReq></Label>
 										<Inputs
@@ -316,9 +318,9 @@ const FormClienteEmpresa = () => {
 									</GrupoInput>
 								</div>
 								<div className="col-6">
-									<div className="contenedorTitulo">
-										<label className="titulo">Informacion Empresa</label>
-									</div>
+									<ContenedorTitulo>
+										<Titulo>Información Empresa</Titulo>
+									</ContenedorTitulo>
 									<GrupoInput>
 										<Label>Cargo <LabelReq> *</LabelReq></Label>
 										<Inputs

@@ -4,7 +4,7 @@ export const EliminarUsuario = async (data) => {
     
     const config = {
         method: 'post',
-        url: 'http://localhost:8181/cxf/eliminarUsuario/services/eliminar',
+        url: 'http://localhost:8181/cxf/convenios1/services/eliminarConvenio',
         headers: {
             'Content-Type': 'application/json',
             id: data,

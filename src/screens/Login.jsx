@@ -4,7 +4,7 @@ import { LoginService } from "../api/LoginService";
 import "../styles/Login.css";
 import { Formik } from "formik";
 import { useNavigate } from 'react-router-dom';
-import { FormPaciente } from "../components/Formularios";
+import { DivTitulos, FormPaciente, Titulo } from "../components/Formularios";
 import FormLogin from "../components/FormLogin";
 
 
@@ -23,9 +23,9 @@ const Login = () => {
         <FormPaciente>
           <FormLogin />
           <div>
-            <div className="contenedorTitulo">
-              <label className="titulo">Nuevo Paciente Cliente</label>
-            </div>
+            <DivTitulos>
+              <Titulo>Nuevo Paciente Cliente</Titulo>
+            </DivTitulos>
             <div id="notaRegistro">
               Si no te encuentras registrado, puedes crear una cuenta a
               continuacion.

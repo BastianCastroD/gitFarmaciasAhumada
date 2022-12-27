@@ -33,6 +33,25 @@ const FormPaciente = styled.div`
     }
 `;
 
+//Div Titulos
+const DivTitulos = styled.div`
+    display: block;
+    border-bottom-style:solid;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(198, 198, 198);
+    text-align: left;
+
+`;
+
+//Titulos
+const Titulo = styled.label`
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 500;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-bottom: 10px;
+`;
+
 //Label de los formularios
 const Label = styled.label`
     font-family: Arial, Helvetica, sans-serif;
@@ -241,4 +260,6 @@ export {
     FormPaciente,
     RestriccionPass,
     ContenedorTitulo,
+    Titulo,
+    DivTitulos,
 };

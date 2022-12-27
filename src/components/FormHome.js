@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Label, GrupoInput, InputH } from "./Formularios";
+import { Label, GrupoInput, InputH, ContenedorTitulo, Titulo } from "./Formularios";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { HomeService } from "../api/HomeService";
 import "../styles/Home.css";
@@ -51,9 +51,9 @@ const FormHome = () => {
 				<div className="row">
 					<div className="col">
 						<GrupoInput>
-							<div className="contenedorTitulo">
-								<label className="titulo">Informacion Personal</label>
-							</div>
+							<ContenedorTitulo>
+								<Titulo>Informacion Personal</Titulo>
+							</ContenedorTitulo>
 							<GrupoInput>
 								<Label className="labelForm" htmlFor="">
 									RUT
@@ -116,9 +116,9 @@ const FormHome = () => {
 					</div>
 					<div className="col">
 						<GrupoInput>
-							<div className="contenedorTitulo">
-								<label className="titulo">Informacion de la Cuenta</label>
-							</div>
+							<ContenedorTitulo>
+								<Titulo>Informacion de la Cuenta</Titulo>
+							</ContenedorTitulo>
 							<GrupoInput>
 								<Label className="labelForm" htmlFor="">
 									Correo Electronico

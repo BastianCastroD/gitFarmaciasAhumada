@@ -1,8 +1,10 @@
 
-.boxTable {
-    display: block;
+.boxTabla {
+    display: center;
     margin-top: 15px;
     margin-bottom: 50px;
+    width: 80%;
+    padding-left: 300px;
 }
 
 

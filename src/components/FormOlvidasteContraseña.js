@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { Label, LabelReq, RestriccionPass, Inputc } from "./Formularios";
+import { Label, LabelReq, RestriccionPass, Inputc, ContenedorTitulo, Titulo } from "./Formularios";
 import "../styles/OlvidasteContraseña.css";
 import { GenerarToken, ValidarToken } from "../api/PacienteService";
 import ModalTest from "./ModalTest";
@@ -79,9 +79,9 @@ const FormOlvidasteContraseña = () => {
 		<main>
 			<form onSubmit={onSubmit}>
 				<div className="central">
-					<div className="contenedorTitulo">
-						<label className="titulo">¿ Olvidaste tu contraseña ?</label>
-					</div>
+					<ContenedorTitulo>
+						<Titulo>¿Olvidaste tu contraseña?</Titulo>
+					</ContenedorTitulo>
 					<div className="leyenda">
 						<label>
 							Introduzca su dirección de correo electrónico
@@ -123,11 +123,11 @@ const FormOlvidasteContraseña = () => {
 									required
 								/>
 								<RestriccionPass>
-									Se ha enviado un token de verificación a tu correo
+									Se ha enviado un token de verificación a tu correo.
 								</RestriccionPass>
 							</div>
 							<div className="CrearPaciente">
-								<button className="buttomCrearCuenta" onClick={handleClickConfirmarToken} >Confirmar Token</button>
+								<button className="buttomRestablecerContraseña" onClick={handleClickConfirmarToken} >Confirmar Token</button>
 							</div>
 						</div>
 					)}

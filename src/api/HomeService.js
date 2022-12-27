@@ -8,6 +8,9 @@ export const HomeService = async (data) => {
 	// 	user,
 	// 	passwd
 	// });
+
+	//localhost:8181
+
 	const config = {
 		method: 'get',
 		url: 'http://localhost:8181/cxf/usuario/services/leer',
