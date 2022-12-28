@@ -12,14 +12,14 @@ const initialForm = {
     passwd2: '',
 };
 
-const FormModificarPass = () => {
+const FormModificarPass = (user) => {
 
     //Variables
     const navigate = useNavigate();
     const [title, setTitle] = useState();
     const [msj, setMsj] = useState();
     const [showModal, setShowModal] = useState(false);
-    const [user, setUser] = useState(false);
+    const [usuario, setUsuario] = useState(JSON.parse(user.user))
     const [IsValid, setIsValid] = useState(false);
     //const handleClose = () => setShowModal(false);
 
@@ -27,7 +27,7 @@ const FormModificarPass = () => {
         setShowModal(false);
         if (IsValid) {
             //Redireccionar al home
-            navigate(`/Home/${(emailparam[2])}`);
+            navigate(`/home`);
             handleClear();
         }
     }
@@ -43,10 +43,7 @@ const FormModificarPass = () => {
 
     //User
     const location = useLocation();
-    const emailparam = location.pathname.split("/")
-    useEffect(() => {
-        setUser(emailparam[2])
-    }, [])
+
 
     //Validaciones
     const onSubmit = async (e) => {
@@ -57,7 +54,7 @@ const FormModificarPass = () => {
             //var mensaje = respActualizar['respuesta'][0]['detalleResultado'];
 
             const registerUsuario = {
-                email: emailparam[2],
+                email: usuario.correo,
                 password: registerData.passwdActual,
             };
 
@@ -66,7 +63,7 @@ const FormModificarPass = () => {
             const r = JSON.parse(resp);
 
             if (r.login[0].codigoResultadoLogin === 0) {
-                const respActualizar = await ActualizarPass(emailparam[2], registerData.passwd);
+                const respActualizar = await ActualizarPass(usuario.correo, registerData.passwd);
                 console.log(respActualizar);
                 if (respActualizar['respuesta'].length === 1) {
                     setIsValid(true);

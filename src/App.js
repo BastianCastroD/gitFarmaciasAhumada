@@ -18,26 +18,47 @@ import Beneficiarios from "./screens/Beneficiarios";
 import CartolaVentas from "./screens/CartolaVentas";
 import Medicos from "./screens/Medicos";
 import ReporteAuditoria from "./screens/ReporteAuditoria";
+import PrivateRoutes from './utils/PrivateRoutes';
+import PacienteRoutes from './utils/PacienteRoutes';
+import EmpresaRoutes from './utils/EmpresaRoutes';
+import LoginRoutes from './utils/LoginRoutes';
 
 export default function App() {
+  const user = localStorage.getItem("user");
   return (
     <BrowserRouter>
-      <Navbar />
+      <Navbar user={user} />
       <Routes>
-        <Route exact path="/" element={<Login />} />
-        <Route exact path="/Home/:email" element={<Home />} />
-        <Route exact path="/HomeEmpresa/:email" element={<HomeEmpresa />} />
+        <Route element={<LoginRoutes />}>
+          <Route exact path="/" element={<Login />} />
+        </Route>
+
         <Route exact path="/OlvidasteContraseña" element={<OlvidasteContraseña />} />
         <Route exact path="/NuevoPacienteCliente" element={<NuevoPacienteCliente />} />
-        <Route exact path="/AdministrarUsuarios" element={<AdministrarUsuarios />} />
-        <Route exact path="/NuevoClienteEmpresa" element={<NuevoClienteEmpresa />} />
-        <Route exact path="/PolizasGrupos" element={<PolizasGrupos />} />
-        <Route exact path="/RestaurarPass/:email" element={<RestaurarPass />} />
-        <Route exact path="/ModificarPass/:email" element={<ModificarPass />} />
-        <Route exact path="/Beneficiarios" element={<Beneficiarios />} />
-        <Route exact path="/CartolaVentas" element={<CartolaVentas />} />
-        <Route exact path="/Medicos" element={<Medicos />} />
-        <Route exact path="/ReporteAuditoria" element={<ReporteAuditoria />} />
+
+
+        <Route element={<PacienteRoutes />}>
+
+        </Route>
+
+        <Route element={<EmpresaRoutes />}>
+          <Route exact path="/HomeEmpresa/:email" element={<HomeEmpresa />} />
+          <Route exact path="/AdministrarUsuarios" element={<AdministrarUsuarios />} />
+          <Route exact path="/NuevoClienteEmpresa" element={<NuevoClienteEmpresa />} />
+          <Route exact path="/PolizasGrupos" element={<PolizasGrupos />} />
+          <Route exact path="/Beneficiarios" element={<Beneficiarios />} />
+          <Route exact path="/CartolaVentas" element={<CartolaVentas />} />
+          <Route exact path="/Medicos" element={<Medicos />} />
+          <Route exact path="/ReporteAuditoria" element={<ReporteAuditoria />} />
+        </Route>
+
+        <Route element={<PrivateRoutes />}>
+          <Route exact path="/RestaurarPass" element={<RestaurarPass />} />
+          <Route exact path="/ModificarPass" element={<ModificarPass />} />
+          <Route exact path="/Home" element={<Home />} />
+        </Route>
+
+
       </Routes>
     </BrowserRouter>
   );

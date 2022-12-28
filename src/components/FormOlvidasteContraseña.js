@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Label, LabelReq, RestriccionPass, Inputc, ContenedorTitulo, Titulo } from "./Formularios";
 import "../styles/OlvidasteContraseña.css";
 import { GenerarToken, ValidarToken } from "../api/PacienteService";
+import { HomeServiceEmpresa } from "../api/HomeEmpresaService";
 import ModalTest from "./ModalTest";
 
 
@@ -23,11 +24,12 @@ const FormOlvidasteContraseña = () => {
 	const [showModal, setShowModal] = useState(false);
 
 
-	const handleCloseToken = () => {
+	const handleCloseToken = async () => {
 		setShowModal(false);
 		if (tokenIsValid) {
 			//Redireccionar a restaurar contraseña.
-			navigate(`/RestaurarPass/${registerData.user}`);
+			localStorage.setItem("user", JSON.stringify(registerData.user));
+			navigate(`/RestaurarPass`);
 			handleClear();
 		}
 	}

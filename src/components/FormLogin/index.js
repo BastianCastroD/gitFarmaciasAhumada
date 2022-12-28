@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { LoginService } from '../../api/LoginService';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, } from 'react-router-dom';
 import styles from './styles.module.css';
 import ReCAPTCHA from "react-google-recaptcha";
 import { NavLink } from "react-router-dom";
@@ -16,14 +16,22 @@ import {
 } from "../Formularios";
 
 import ModalTest from '../ModalTest';
+import { HomeServiceEmpresa } from "../../api/HomeEmpresaService";
 
 
 const FormLogin = () => {
 
+
+	useEffect(() => {
+		const loggedInUser = localStorage.getItem("user");
+		if (loggedInUser) {
+			const foundUser = JSON.parse(loggedInUser);
+			console.log(foundUser);
+		}
+	}, []);
+
 	const [showModal, setShowModal] = useState(false);
 	const handleClose = () => setShowModal(false);
-
-
 	const [msj, setMsj] = useState();
 	const [title, setTitle] = useState();
 
@@ -66,22 +74,15 @@ const FormLogin = () => {
 		const resp = await LoginService(registerData);
 		const r = JSON.parse(resp);
 
-
 		// Condicional segun el codigo de respuesta (0=ok - 1=No Existe - 2=Usuario Invalido - 3=Pass Expirada)
 		if (r.login[0].codigoResultadoLogin === 0) {
-			switch (r.login[0].tipo) {
 
-				case "Empresa":
-					navigate(`/HomeEmpresa/${registerData.email}`);
-					break;
-				case "Administrador":
-					navigate(`/Home/${registerData.email}`);
-					break;
-				case "Paciente":
-					navigate(`/Home/${registerData.email}`);
-					break;
-				default:
-			}
+			//Llamamos a la api del usuario para obtener sus datos y le agregamos el tipo en la informacion 
+			const user = await HomeServiceEmpresa(registerData.email)
+			user.usuarioEmpresa[0].rol = r.login[0].tipo
+			localStorage.setItem("user", JSON.stringify(user.usuarioEmpresa[0]));
+			navigate(`/Home`);
+
 
 		} else if (r.login[0].codigoResultadoLogin === 1) {
 			setShowModal(true)

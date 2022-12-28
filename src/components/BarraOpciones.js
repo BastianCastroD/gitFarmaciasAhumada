@@ -2,11 +2,19 @@ import React from "react";
 import "../styles/BarraOpciones.css";
 import { NavLink } from "react-router-dom";
 
-const BarraOpciones = () => {
-    return (  
+const BarraOpciones = (user) => {
+    const usuario = (JSON.parse(user.user));
+    return (
         <div className="Barra">
+
             <div className="contenedorOpciones">
-                <NavLink to="/AdministrarUsuarios" className="opcion" >Administrar Usuarios</NavLink>
+                {
+                    (usuario.rol === "Empresa")
+                        ?
+                        <NavLink to="/AdministrarUsuarios" className="opcion" >Administrar Usuarios</NavLink>
+                        : null
+                }
+
                 <NavLink to="/PolizasGrupos" className="opcion" >Polizas y Grupos</NavLink>
                 <NavLink to="/Beneficiarios" className="opcion" >Beneficiarios</NavLink>
                 <NavLink to="/CartolaVentas" className="opcion" >Cartola Ventas</NavLink>
@@ -20,5 +28,5 @@ const BarraOpciones = () => {
         </div>
     );
 }
- 
+
 export default BarraOpciones;

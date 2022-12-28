@@ -2,11 +2,12 @@ import React from "react";
 import FormModificarPass from "../components/FormModificarPass";
 
 const ModificarPass = () => {
-    return ( 
+    var user = localStorage.getItem("user");
+    return (
         <div>
-            <FormModificarPass/>
+            <FormModificarPass user={user} />
         </div>
     );
 }
- 
+
 export default ModificarPass;
