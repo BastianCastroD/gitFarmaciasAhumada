@@ -10,7 +10,6 @@ import OlvidasteContraseña from "./screens/OlvidasteContraseña";
 import NuevoPacienteCliente from "./screens/NuevoPacienteCliente";
 import AdministrarUsuarios from "./screens/AdministrarUsuarios";
 import NuevoClienteEmpresa from "./screens/NuevoClienteEmpresa";
-import HomeEmpresa from "./screens/HomeEmpresa";
 import PolizasGrupos from "./screens/PolizasGrupos";
 import ModificarPass from "./screens/ModificarPass";
 import RestaurarPass from "./screens/RestaurarPass";
@@ -38,11 +37,10 @@ export default function App() {
 
 
         <Route element={<PacienteRoutes />}>
-
+          <Route exact path="/CartolaVentas" element={<CartolaVentas />} />
         </Route>
 
         <Route element={<EmpresaRoutes />}>
-          <Route exact path="/HomeEmpresa/:email" element={<HomeEmpresa />} />
           <Route exact path="/AdministrarUsuarios" element={<AdministrarUsuarios />} />
           <Route exact path="/NuevoClienteEmpresa" element={<NuevoClienteEmpresa />} />
           <Route exact path="/PolizasGrupos" element={<PolizasGrupos />} />

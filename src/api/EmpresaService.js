@@ -29,6 +29,7 @@ export const EmpresaService = async (data) => {
 
 	return response;
 }
+
 export const ConvenioService = async (user, codigo) => {
 
 	const config = {
