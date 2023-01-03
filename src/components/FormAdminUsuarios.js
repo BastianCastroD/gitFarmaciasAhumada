@@ -9,7 +9,8 @@ import ModalConfirmar from "./ModalConfirmar";
 import { ListarUsuarios } from "../api/ListarUsuarios";
 
 
-const FormAdminUsuarios = () => {
+const FormAdminUsuarios = (user) => {
+    const [usuario, setUsuario] = useState(JSON.parse(user.user))
     const [title, setTitle] = useState();
     const [msj, setMsj] = useState();
     const [showModalConfirmar, setShowModalConfirmar] = useState(false);
@@ -23,7 +24,7 @@ const FormAdminUsuarios = () => {
     }
 
     const handleConfirmar = async () => {
-        const resp = await EliminarUsuario(idElminar)
+        const resp = await EliminarUsuario(idElminar, usuario.correo)
         var codigoRespuesta = resp['eliminar'][0]['codigoRespuesta'];
         var detalleRespuesta = resp['eliminar'][0]['detalleRespuesta'];
         setShowModalConfirmar(false);

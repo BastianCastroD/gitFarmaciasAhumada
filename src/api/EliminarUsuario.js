@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-export const EliminarUsuario = async (data) => {
+export const EliminarUsuario = async (data, usuario) => {
     
     const config = {
         method: 'post',
@@ -8,6 +8,7 @@ export const EliminarUsuario = async (data) => {
         headers: {
             'Content-Type': 'application/json',
             id: data,
+            userRep: usuario,
         },
     };
 

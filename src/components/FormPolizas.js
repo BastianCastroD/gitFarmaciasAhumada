@@ -28,8 +28,6 @@ const FormPolizas = () => {
 
     };
 
-
-
     return (
         <main>
             <div>
