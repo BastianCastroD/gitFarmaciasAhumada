@@ -23,6 +23,7 @@ const FormRestaurarPass = (user) => {
         setShowModal(false);
         if (isValid) {
             //Redireccionar al home usuario cliente recien creado
+            localStorage.removeItem("user");
             navigate(`/`);
             handleClear();
         }
@@ -113,8 +114,8 @@ const FormRestaurarPass = (user) => {
             <form onSubmit={onSubmit}>
                 <div className="central">
                     <ContenedorTitulo>
-					    <Titulo>Restaurar Contraseña</Titulo>
-				    </ContenedorTitulo>
+                        <Titulo>Restaurar Contraseña</Titulo>
+                    </ContenedorTitulo>
                     <div className="leyenda">
                         <label>
                             Ingrese una nueva contraseña.

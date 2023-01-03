@@ -7,6 +7,7 @@ import "../styles/Home.css";
 //import { LoginService } from "../api/LoginService";
 
 const FormHome = (user) => {
+
 	const [initialState, setInitialState] = useState({
 		nombre: '',
 		rut: '',
@@ -176,7 +177,7 @@ const FormHome = (user) => {
 											/>
 										</GrupoInput>
 									</div>
-									<div class="col-6">
+									<div className="col-6">
 										<div className="contenedorTitulo">
 											<label className="titulo">Informacion Empresa</label>
 										</div>

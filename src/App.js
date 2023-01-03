@@ -16,6 +16,7 @@ import ModificarPass from "./screens/ModificarPass";
 import RestaurarPass from "./screens/RestaurarPass";
 import Beneficiarios from "./screens/Beneficiarios";
 import CartolaVentas from "./screens/CartolaVentas";
+import AdministrarRoles from "./screens/AdministrarRoles";
 import Medicos from "./screens/Medicos";
 import ReporteAuditoria from "./screens/ReporteAuditoria";
 import PrivateRoutes from './utils/PrivateRoutes';
@@ -42,22 +43,24 @@ export default function App() {
         </Route>
 
         <Route element={<EmpresaRoutes />}>
+
           <Route exact path="/HomeEmpresa/:email" element={<HomeEmpresa />} />
           <Route exact path="/AdministrarUsuarios" element={<AdministrarUsuarios />} />
           <Route exact path="/NuevoClienteEmpresa" element={<NuevoClienteEmpresa />} />
           <Route exact path="/PolizasGrupos" element={<PolizasGrupos />} />
           <Route exact path="/Beneficiarios" element={<Beneficiarios />} />
           <Route exact path="/CartolaVentas" element={<CartolaVentas />} />
-          <Route exact path="/Medicos" element={<Medicos />} />
-          <Route exact path="/ReporteAuditoria" element={<ReporteAuditoria />} />
+
         </Route>
 
         <Route element={<PrivateRoutes />}>
           <Route exact path="/RestaurarPass" element={<RestaurarPass />} />
           <Route exact path="/ModificarPass" element={<ModificarPass />} />
           <Route exact path="/Home" element={<Home />} />
+          <Route exact path="/Medicos" element={<Medicos />} />
+          <Route exact path="/ReporteAuditoria" element={<ReporteAuditoria />} />
         </Route>
-
+        <Route exact path="/AdministrarRoles" element={<AdministrarRoles />} />
 
       </Routes>
     </BrowserRouter>

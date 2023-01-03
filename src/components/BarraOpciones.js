@@ -3,7 +3,9 @@ import "../styles/BarraOpciones.css";
 import { NavLink } from "react-router-dom";
 
 const BarraOpciones = (user) => {
+
     const usuario = (JSON.parse(user.user));
+    console.log(usuario)
     return (
         <div className="Barra">
 
@@ -14,7 +16,7 @@ const BarraOpciones = (user) => {
                         <NavLink to="/AdministrarUsuarios" className="opcion" >Administrar Usuarios</NavLink>
                         : null
                 }
-
+                <NavLink to="/AdministrarRoles" className="opcion" >Administrar Roles</NavLink>
                 <NavLink to="/PolizasGrupos" className="opcion" >Polizas y Grupos</NavLink>
                 <NavLink to="/Beneficiarios" className="opcion" >Beneficiarios</NavLink>
                 <NavLink to="/CartolaVentas" className="opcion" >Cartola Ventas</NavLink>

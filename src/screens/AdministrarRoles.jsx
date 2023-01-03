@@ -1,14 +1,16 @@
 import React from "react";
-
+import AdministrarRols from "../components/AdministrarRoles";
 import BarraOpciones from "../components/BarraOpciones";
 
+
 const AdministrarRoles = () => {
-    return (  
+    var user = localStorage.getItem("user");
+    return (
         <div>
-            <BarraOpciones />
-            <h1>Administracion de Roles</h1>
+            <BarraOpciones user={user} />
+            <AdministrarRols user={user} />
         </div>
     );
 }
- 
+
 export default AdministrarRoles;

@@ -8,7 +8,7 @@ import ModalTest from "../ModalTest";
 import { MRT_Localization_ES } from 'material-react-table/locales/es';
 import "../../styles/PolizasGrupos.css";
 import { PolizaServiceUpdate } from "../../api/PolizaService";
-import ModalUploadFile from "../ModalUploadFile/ModalUploadFile";
+import ModalUploadFile from "../Modals/ModalUploadFile";
 import * as XLSX from 'xlsx/xlsx.mjs';
 
 
