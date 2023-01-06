@@ -1,14 +1,16 @@
+import React from "react";
 import BarraOpciones from "../components/BarraOpciones";
-import ListarMedicos from "../components/ListarMedicos";
-
-const Medicos = () => {
+import ListaDocumentos from "../components/ListarDocumentos";
+const Documentos = () => {
     var user = localStorage.getItem("user");
     return (
         <div>
             <BarraOpciones user={user} />
-            <ListarMedicos user={user} />
-        </div>
-    );
-}
+            <ListaDocumentos user={user} />
 
-export default Medicos;
+        </div>
+
+    );
+};
+
+export default Documentos;

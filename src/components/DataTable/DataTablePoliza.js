@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import MaterialReactTable from 'material-react-table';
-import Button from 'react-bootstrap/Button';
+import Button from '@mui/material/Button';
 import ModalConfirmar from "../ModalConfirmar";
 import ModalTest from "../ModalTest";
-
-
 import { MRT_Localization_ES } from 'material-react-table/locales/es';
 import "../../styles/PolizasGrupos.css";
 import { PolizaServiceUpdate } from "../../api/PolizaService";
@@ -218,17 +216,17 @@ const DataTablePoliza = props => {
             <div style={{ display: 'flex', gap: '0.5rem' }}>
 
               <Button
-
+                variant="contained"
                 onClick={() => { downloadExcel(table.getPrePaginationRowModel().rows) }}
               >
-                Descargar
+                Exportar
 
               </Button>
               <Button
-
+                variant="contained"
                 onClick={() => { setShowModalUpload(true) }}
               >
-                Cargar
+                Importar
               </Button>
             </div>
 

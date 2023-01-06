@@ -1,15 +1,12 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button';
+import Button from '@mui/material/Button';
 import Modal from 'react-bootstrap/Modal';
-import UploadFilePolizas from "../UploadFile/UploadFilePolizas";
+import UploadFileMedicos from "../UploadFile/UploadFileMedicos";
 
 
 
 
-const ModalUploadFile = ({ show, handleClose, msj, title }) => {
-
-
-
+const ModalUploadFileMedicos = ({ show, handleClose, msj, title }) => {
 
     return (
         <Modal show={show} onHide={handleClose}
@@ -21,18 +18,19 @@ const ModalUploadFile = ({ show, handleClose, msj, title }) => {
             </Modal.Header>
             <Modal.Body>{msj}
 
-                <UploadFilePolizas>
+                <UploadFileMedicos>
 
-                </UploadFilePolizas>
+                </UploadFileMedicos>
 
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="primary" onClick={handleClose}>
+                <Button variant="contained" onClick={handleClose}>
                     Aceptar
                 </Button>
             </Modal.Footer>
         </Modal>
     );
+
 };
 
-export default ModalUploadFile;
+export default ModalUploadFileMedicos;

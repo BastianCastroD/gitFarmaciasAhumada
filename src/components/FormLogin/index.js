@@ -67,35 +67,65 @@ const FormLogin = () => {
 		}));
 	};
 
-	// Validaciones del Login
+	// La función onSubmit se ejecuta cuando se envía el formulario de inicio de sesión
 	const onSubmit = async (e) => {
+		// Previene la recarga de la página al enviar el formulario
 		e.preventDefault();
 
-		const resp = await LoginService(registerData);
-		const r = JSON.parse(resp);
+		try {
+			// Realiza una llamada a la API de inicio de sesión y obtiene la respuesta
+			const resp = await LoginService(registerData);
+			// Extrae la información relevante de la respuesta
+			const { login } = JSON.parse(resp);
+			const [{ codigoResultadoLogin }] = login;
 
-		// Condicional segun el codigo de respuesta (0=ok - 1=No Existe - 2=Usuario Invalido - 3=Pass Expirada)
-		if (r.login[0].codigoResultadoLogin === 0) {
+			// Si el código de resultado es 0 (ok), se procede a obtener los datos del usuario y a almacenarlos en el almacenamiento local
+			if (codigoResultadoLogin === 0) {
+				const user = await HomeServiceEmpresa(registerData.email);
+				const [usuario] = user.usuarioEmpresa;
+				usuario.rol = login[0].tipo;
 
-			//Llamamos a la api del usuario para obtener sus datos y le agregamos el tipo en la informacion 
-			const user = await HomeServiceEmpresa(registerData.email)
-			user.usuarioEmpresa[0].rol = r.login[0].tipo
-			localStorage.setItem("user", JSON.stringify(user.usuarioEmpresa[0]));
-			navigate(`/Home`);
+				// Crea un objeto para almacenar los convenios del usuario
+				const convenios = {};
+				// Recorre el array de usuarioEmpresa y agrega cada convenio al objeto convenios
+				user.usuarioEmpresa.forEach(obj => {
+					if (obj.convenio) {
+						if (convenios.convenio) {
+							convenios.convenio += `,${obj.convenio}`;
+						} else {
+							convenios.convenio = obj.convenio;
+						}
+					}
+				});
 
+				// Combina los datos del usuario y los convenios en un nuevo objeto
+				const userFormated = { ...usuario, ...convenios };
+				// Almacena el objeto en el almacenamiento local
+				localStorage.setItem("user", JSON.stringify(userFormated));
+				// Redirige al usuario a la página principal
+				navigate(`/Home`);
+			}
+			// Si el código de resultado es 1 (No Existe), se muestra un modal con un mensaje de error
+			else if (codigoResultadoLogin === 1) {
+				setShowModal(true);
+				setTitle("Error al iniciar sesión");
+				setMsj("El usuario ingresado no existe.");
+			}
+			// Si el código de resultado es 2 (Usuario Invalido), se muestra un modal con un mensaje de error
+			else if (codigoResultadoLogin === 2) {
+				setShowModal(true);
+				setTitle("Error al iniciar sesión");
+				setMsj("El usuario ingresado es invalido.");
 
-		} else if (r.login[0].codigoResultadoLogin === 1) {
-			setShowModal(true)
-			setTitle("Error al iniciar sesión")
-			setMsj("El usuario ingresado no existe.")
-		} else if (r.login[0].codigoResultadoLogin === 2) {
-			setShowModal(true)
-			setTitle("Error al iniciar sesión")
-			setMsj("El usuario ingresado es invalido.")
-		} else if (r.login[0].codigoResultadoLogin === 3) {
-			setShowModal(true)
-			setTitle("Error al iniciar sesión")
-			setMsj("La contraseña ingresada se encuentra expirada.")
+			}
+			// Si el código de resultado es 3 (Pass Expirada), se muestra un modal con un mensaje de error
+			else if (codigoResultadoLogin === 3) {
+				setShowModal(true)
+				setTitle("Error al iniciar sesión")
+				setMsj("La contraseña ingresada se encuentra expirada.")
+			}
+		} catch (error) {
+			console.error(error);
 		}
 	};
 

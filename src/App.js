@@ -17,6 +17,7 @@ import Beneficiarios from "./screens/Beneficiarios";
 import CartolaVentas from "./screens/CartolaVentas";
 import AdministrarRoles from "./screens/AdministrarRoles";
 import Medicos from "./screens/Medicos";
+import Documentos from "./screens/Documentos";
 import ReporteAuditoria from "./screens/ReporteAuditoria";
 import PrivateRoutes from './utils/PrivateRoutes';
 import PacienteRoutes from './utils/PacienteRoutes';
@@ -57,7 +58,10 @@ export default function App() {
           <Route exact path="/Medicos" element={<Medicos />} />
           <Route exact path="/ReporteAuditoria" element={<ReporteAuditoria />} />
         </Route>
+
         <Route exact path="/AdministrarRoles" element={<AdministrarRoles />} />
+
+        <Route exact path="/Documentos" element={<Documentos />} />
 
       </Routes>
     </BrowserRouter>

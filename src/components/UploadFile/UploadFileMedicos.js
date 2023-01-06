@@ -1,14 +1,13 @@
-
 import React, { Component } from 'react';
-import Button from 'react-bootstrap/Button';
+import Button from '@mui/material/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import * as XLSX from 'xlsx/xlsx.mjs';
 import TextareaAutosize from '@mui/base/TextareaAutosize';
-import { UploadPolizas } from "../../api/UploadExcelPolizas";
+import { UploadMedicos } from "../../api/UploadExcelMedicos";
 
-class UploadFile extends Component {
+class UploadFileMedicos extends Component {
 
     state = {
         // Initially, no file is selected
@@ -28,9 +27,10 @@ class UploadFile extends Component {
             if (sheets.length) {
                 const jsonRows = XLSX.utils.sheet_to_json(wb.Sheets[sheets[0]], { raw: false });
                 for (let i = 0; i < jsonRows.length; i++) {
-
-                    if (jsonRows[i].terminoBeneficio.includes("/")) {
-                        var dateString = jsonRows[i].terminoBeneficio.replaceAll('-', '/')
+                    //replace , with empty space in jsonRows[i].nombre
+                    jsonRows[i].nombre = jsonRows[i].nombre.replaceAll(',', '');
+                    if (jsonRows[i].fechaDesde.includes("/")) {
+                        var dateString = jsonRows[i].fechaDesde.replaceAll('-', '/')
                         var dateObject = new Date(dateString);
                         var day = dateObject.getDate();
                         var month = dateObject.getMonth();
@@ -40,6 +40,7 @@ class UploadFile extends Component {
                     }
                 }
                 const rows = XLSX.utils.sheet_to_csv(XLSX.utils.json_to_sheet(jsonRows));
+                console.log(rows)
                 this.setState({ selectedFile: rows });;
             }
         }
@@ -51,8 +52,8 @@ class UploadFile extends Component {
         e.preventDefault();
         if (this.state.selectedFile !== null) {
             const blob = new Blob([this.state.selectedFile], { type: 'text/csv' });
-            var resp = await UploadPolizas(blob);
-            this.setState({ msj: resp.response1[0].detalleRespuest });;
+            var resp = await UploadMedicos(blob);
+            this.setState({ msj: resp });;
         }
     };
     handleClick = event => {
@@ -69,7 +70,7 @@ class UploadFile extends Component {
                             <Form.Control required onChange={this.onFileChange} onClick={this.handleClick} type="file" />
                         </Col>
                         <Col>
-                            <Button type="submit" style={{ marginTop: 5 }}>
+                            <Button type="submit" variant="contained" style={{ marginTop: 5 }}>
                                 Subir archivo
                             </Button>
                         </Col>
@@ -88,4 +89,4 @@ class UploadFile extends Component {
     }
 }
 
-export default UploadFile;
+export default UploadFileMedicos;

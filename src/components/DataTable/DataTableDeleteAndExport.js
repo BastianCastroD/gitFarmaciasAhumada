@@ -1,10 +1,8 @@
 import React, { useState, useCallback } from "react";
-
 import MaterialReactTable, {
   MRT_FullScreenToggleButton, MRT_ToggleGlobalFilterButton, MRT_ToggleFiltersButton
 } from 'material-react-table';
 import { Box, Button, IconButton, Tooltip } from '@mui/material';
-
 import Delete from '@mui/icons-material/Delete';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { ExportToCsv } from 'export-to-csv-fix-source-map';
